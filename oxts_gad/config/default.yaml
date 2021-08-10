@@ -18,5 +18,10 @@ oxts_gad:
     lva: [0.0, 0.0, 0.1]
     # Lever arm variance x,y,z
     lva_var: [0.01, 0.01, 0.01]
+    # Rotation from IMU to aiding device frame in Euler angles
+    rot:     [90.0, 0.0, 0.0]
+    # Variance on Euler angle values
+    rot_var: [5.0, 5.0, 5.0]
+
 
 #===============================================================================

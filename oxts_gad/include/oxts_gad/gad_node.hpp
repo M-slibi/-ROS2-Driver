@@ -37,6 +37,8 @@ class GadNode : public rclcpp::Node
   std::string odom_topic;
   std::vector<double> lva;
   std::vector<double> lva_var;
+  std::vector<double> rot;
+  std::vector<double> rot_var;
   
   // Other class members
   OxTS::GadHandler gad_handler; 
@@ -59,6 +61,8 @@ class GadNode : public rclcpp::Node
     odom_topic        = this->declare_parameter("odom_topic", "/ins/odom");
     lva               = this->declare_parameter("lva", std::vector<double>({}));
     lva_var           = this->declare_parameter("lva_var", std::vector<double>({}));
+    rot               = this->declare_parameter("rot", std::vector<double>({}));
+    rot_var           = this->declare_parameter("rot_var", std::vector<double>({}));
 
     switch (output_mode)
     {
