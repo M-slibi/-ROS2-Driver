@@ -1,6 +1,8 @@
 oxts_gad:
   ros__parameters:
 #===============================================================================
+    # Output to UDP or file [0 - UDP, 1 - file]
+    output_mode: 0
     # IP address of the INS to send GAD to
     unit_ip: "192.168.25.217"
     # File path to the output .gad file
