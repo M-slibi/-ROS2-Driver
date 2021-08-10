@@ -1,5 +1,5 @@
 #include "oxts_gad/gad_node.hpp"
-
+#include "oxts_gad/nav_const.hpp"
 
 namespace OxTS
 {

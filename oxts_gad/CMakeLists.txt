@@ -29,6 +29,7 @@ find_package(Boost COMPONENTS system thread regex)
 add_executable(${PROJECT_NAME} 
                src/oxts_gad.cpp
                src/gad_node.cpp
+               src/nav_conversions.cpp
 )
 
 ament_target_dependencies(${PROJECT_NAME} 
