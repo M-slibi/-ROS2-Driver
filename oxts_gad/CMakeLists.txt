@@ -19,18 +19,33 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
+find_package(oxts-sdk-gal-cpp REQUIRED)
+find_package(Boost COMPONENTS system thread regex)
 
-add_executable(oxts_gad 
+
+add_executable(${PROJECT_NAME} 
                src/oxts_gad.cpp
+               src/gad_node.cpp
 )
 
-ament_target_dependencies(oxts_gad
-  rclcpp
-  std_msgs
+ament_target_dependencies(${PROJECT_NAME} 
+    rclcpp
+    std_msgs
+    sensor_msgs
+    geometry_msgs
+    nav_msgs
+)
+
+target_link_libraries(${PROJECT_NAME} 
+    oxts-sdk-gal-cpp
 )
 
 target_include_directories(oxts_gad PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  PRIVATE ${Boost_INCLUDE_DIRS}
   $<INSTALL_INTERFACE:include>)
 
 install(TARGETS oxts_gad
