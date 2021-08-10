@@ -9,14 +9,14 @@
 #include "rclcpp/rclcpp.hpp"
 #include "oxts_gad/gad_node.hpp"
 
-  #include "oxts/gal-cpp/gad.hpp"
+#include "oxts/gal-cpp/gad.hpp"
 #include "oxts/gal-cpp/gad_handler.hpp"
 
 
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<OxtsGadNode>());
+  rclcpp::spin(std::make_shared<OxTS::GadNode>(rclcpp::NodeOptions()));
   rclcpp::shutdown();
   return 0;
 }

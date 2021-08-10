@@ -1,0 +1,20 @@
+oxts_gad:
+  ros__parameters:
+#===============================================================================
+    # IP address of the INS to send GAD to
+    unit_ip: "192.168.25.217"
+    # File path to the output .gad file
+    file_out: "~/recorded.gad"
+
+    # sensor_msgs/NavSatFix topic
+    nav_sat_fix_topic: /ins/nav_sat_fix
+    # nav_msgs/Odometry topic
+    odom_topic: /ins/odom
+    # Other topics...
+
+    # Lever arm x,y,z in IMU frame
+    lva: [0.0, 0.0, 0.1]
+    # Lever arm variance x,y,z
+    lva_var: [0.01, 0.01, 0.01]
+
+#===============================================================================
