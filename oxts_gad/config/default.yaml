@@ -5,23 +5,14 @@ oxts_gad:
     output_mode: 0
     # IP address of the INS to send GAD to
     unit_ip: "192.168.25.217"
-    # File path to the output .gad file - BUG: crashing node
-    file_out: "/home/recorded.gad"
+    # File path to the output .gad file - BUG: crashing node with ~
+    file_out: "recorded.gad"
 
     # sensor_msgs/NavSatFix topic
     nav_sat_fix_topic: /ins/nav_sat_fix
     # nav_msgs/Odometry topic
     odom_topic: /ins/odom
     # Other topics...
-
-    # Lever arm x,y,z in IMU frame
-    lva:     [0.0, 0.0, 0.1]
-    # Lever arm variance x,y,z
-    lva_var: [0.01, 0.01, 0.01]
-    # Rotation from IMU to aiding device frame in Euler angles
-    rot:     [90.0, 0.0, 0.0]
-    # Variance on Euler angle values
-    rot_var: [5.0, 5.0, 5.0]
 
 
 #===============================================================================

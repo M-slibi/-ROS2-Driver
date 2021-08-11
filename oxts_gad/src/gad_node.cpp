@@ -24,8 +24,7 @@ void GadNode::nav_sat_fix_callback(const sensor_msgs::msg::NavSatFix::SharedPtr 
                        msg->position_covariance[8]
   );
   gp.SetTimeVoid();
-  gp.SetAidingLeverArmFixed(this->lva[0], this->lva[1], this->lva[2]);
-  gp.SetAidingLeverArmVar(this->lva_var[0], this->lva_var[1], this->lva_var[2]);
+  gp.SetAidingLeverArmConfig();
 
   gad_handler.SendPacket(gp);
 }
@@ -48,8 +47,7 @@ void GadNode::odometry_callback(const nav_msgs::msg::Odometry::SharedPtr msg)
     msg->pose.covariance[14]
   );
   gp.SetTimeVoid();
-  gp.SetAidingLeverArmFixed(this->lva[0], this->lva[1], this->lva[2]);
-  gp.SetAidingLeverArmVar(this->lva_var[0], this->lva_var[1], this->lva_var[2]);
+  gp.SetAidingLeverArmConfig();
 
   /// Orientation
   OxTS::GadAttitude ga = OxTS::GadAttitude(141);
