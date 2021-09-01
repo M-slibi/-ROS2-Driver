@@ -74,18 +74,18 @@ BOOST_AUTO_TEST_CASE(odom_to_gad_orientation_conversion,
     std::vector<double> att_ref2 = {90.0,0.0,0.0};
     BOOST_TEST(ga.GetAtt() == att_ref2,  utt::per_element());
     // Case 3
-    msg->pose.pose.orientation.x =  0.65328148  ; 
-    msg->pose.pose.orientation.y =  0.65328148  ;
-    msg->pose.pose.orientation.z =  0.27059805 ;
-    msg->pose.pose.orientation.w =   -0.27059805;
+    msg->pose.pose.orientation.x = 0.65328148; 
+    msg->pose.pose.orientation.y = 0.65328148;
+    msg->pose.pose.orientation.z = 0.27059805;
+    msg->pose.pose.orientation.w = -0.27059805;
     OxTS::odom_to_gad_att(msg, ga);
     std::vector<double> att_ref3 = {0.0,45.0,0.0};
     BOOST_TEST(ga.GetAtt() == att_ref3,  utt::per_element());
     // Case 4
-    msg->pose.pose.orientation.x =  0.56098553  ; 
-    msg->pose.pose.orientation.y =    0.43045933 ;
-    msg->pose.pose.orientation.z =   -0.09229596 ;
-    msg->pose.pose.orientation.w =   -0.70105738;
+    msg->pose.pose.orientation.x = 0.56098553; 
+    msg->pose.pose.orientation.y = 0.43045933;
+    msg->pose.pose.orientation.z = -0.09229596;
+    msg->pose.pose.orientation.w = -0.70105738;
     OxTS::odom_to_gad_att(msg, ga);
     std::vector<double> att_ref4 = {45.0,30.0,90.0};
     BOOST_TEST(ga.GetAtt() == att_ref4,  utt::per_element());
