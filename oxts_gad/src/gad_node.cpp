@@ -1,3 +1,6 @@
+#include <memory>
+
+#include <oxts/gal-cpp/gad.hpp>
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf2/LinearMath/Matrix3x3.h>
 #include "tf2_geometry_msgs/tf2_geometry_msgs.h"
@@ -8,6 +11,45 @@
 
 namespace OxTS
 {
+
+
+void odom_to_gad_att(
+  const nav_msgs::msg::Odometry::SharedPtr msg, 
+  OxTS::GadAttitude& ga_out   
+){
+  auto q_att_enu = tf2::Quaternion();
+
+  tf2::convert(msg->pose.pose.orientation, q_att_enu);
+
+
+  auto q_enu2ned = tf2::Quaternion();
+  q_enu2ned.setRPY(
+    180.0 * NAV_CONST::DEG2RADS,
+    0.0   * NAV_CONST::DEG2RADS,
+    90.0  * NAV_CONST::DEG2RADS
+  );
+
+  auto q_att =  q_enu2ned * q_att_enu;
+  auto m_att = tf2::Matrix3x3(q_att);
+
+  double r, p, y;
+  m_att.getRPY(r, p, y);
+  ga_out.SetAtt(
+    y * NAV_CONST::RADS2DEG,
+    p * NAV_CONST::RADS2DEG,
+    r * NAV_CONST::RADS2DEG
+  );
+
+  ga_out.SetAttVar(
+    msg->pose.covariance[0],
+    msg->pose.covariance[7],
+    msg->pose.covariance[14]
+  );
+  ga_out.SetTimeVoid();
+  // Attitude *must* be associated to the KF.
+  ga_out.SetAidingAlignmentOptimising();
+
+}
 
 
 void GadNode::nav_sat_fix_callback(const sensor_msgs::msg::NavSatFix::SharedPtr msg)
@@ -31,16 +73,17 @@ void GadNode::nav_sat_fix_callback(const sensor_msgs::msg::NavSatFix::SharedPtr 
 
 void GadNode::odometry_callback(const nav_msgs::msg::Odometry::SharedPtr msg)
 {
-  RCLCPP_INFO(this->get_logger(), "odom received");
-
-  // Pose 
-  /// Position
   OxTS::GadPosition gp = OxTS::GadPosition(140);
   gp.SetPosLocal(
     msg->pose.pose.position.x,
     msg->pose.pose.position.y,
     msg->pose.pose.position.z
   );
+  // RCLCPP_INFO(this->get_logger(), "local pos: %lf, %lf, %lf", 
+  //   msg->pose.pose.position.x,
+  //   msg->pose.pose.position.y,
+  //   msg->pose.pose.position.z
+  // );
   gp.SetPosLocalVar(
     msg->pose.covariance[0],
     msg->pose.covariance[7],
@@ -48,36 +91,34 @@ void GadNode::odometry_callback(const nav_msgs::msg::Odometry::SharedPtr msg)
   );
   gp.SetTimeVoid();
   gp.SetAidingLeverArmConfig();
+  gad_handler.SendPacket(gp);
 
   /// Orientation
-  OxTS::GadAttitude ga = OxTS::GadAttitude(141);
-  auto q_att = tf2::Quaternion();
-  tf2::convert(msg->pose.pose.orientation, q_att);
-  auto m_att = tf2::Matrix3x3(q_att);
-  double r, p, y;
-  m_att.getRPY(r, p, y);
-  ga.SetAtt(
-    y * NAV_CONST::RADS2DEG,
-    p * NAV_CONST::RADS2DEG,
-    r * NAV_CONST::RADS2DEG
+  OxTS::GadAttitude ga = OxTS::GadAttitude(141); 
+  odom_to_gad_att(msg, ga);
+  gad_handler.SendPacket(ga);
+
+  // Create Velocity GAD
+  OxTS::GadVelocity gv = OxTS::GadVelocity(142);
+  gv.SetVelOdom(
+    msg->twist.twist.linear.x,
+    msg->twist.twist.linear.y,
+    msg->twist.twist.linear.z
   );
 
-  // Twist (velocity)
-  /// Linear
-  msg->twist.twist.linear.x;
-  msg->twist.twist.linear.y;
-  msg->twist.twist.linear.z;
-
-  /// Angular
-  msg->twist.twist.angular.x;
-  msg->twist.twist.angular.y;
-  msg->twist.twist.angular.z;
+  gv.SetVelOdomVar(
+    0.5*msg->twist.covariance[0],
+    0.5*msg->twist.covariance[7],
+    0.5*msg->twist.covariance[14]
+  );
 
 
-  // Twist Covariance
-  msg->twist.covariance;
+  gv.SetTimeVoid();
+  gv.SetAidingLeverArmFixed(0.0,0.0,0.0);
+  gad_handler.SendPacket(gv);
 
 
+  /// Angular velocities not supported by GAD
 }
 
 

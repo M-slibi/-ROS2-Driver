@@ -20,6 +20,11 @@
 namespace OxTS
 {
 
+void odom_to_gad_att(
+  const nav_msgs::msg::Odometry::SharedPtr msg, 
+  OxTS::GadAttitude& ga_out   
+);
+
 enum OUTPUT_MODE
 {
   UDP = 0,
@@ -76,12 +81,6 @@ class GadNode : public rclcpp::Node
         RCLCPP_INFO(this->get_logger(), "INS IP: %s", unit_ip.c_str());
         break;
     }
-
-
-
-
-
-
 
 
     subNavSatFix_ = this->create_subscription<sensor_msgs::msg::NavSatFix>(
