@@ -135,7 +135,6 @@ class GadNode : public rclcpp::Node
     unit_ip           = this->declare_parameter("unit_ip", std::string(""));
     file_out          = this->declare_parameter("file_out", std::string(""));
     nav_sat_fix_topic = this->declare_parameter("nav_sat_fix_topic", "/ins/nav_sat_fix");
-    odom_topic        = this->declare_parameter("odom_topic", "/ins/odom");
     stream_ids["NAV_SAT_FIX_POS"] =
       this->declare_parameter("nav_sat_fix_pos_stream_id", 130);
     odom_topic        = this->declare_parameter("odom_topic", "/ins/odom");
