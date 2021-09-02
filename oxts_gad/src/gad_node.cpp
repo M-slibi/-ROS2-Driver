@@ -118,12 +118,12 @@ void twist_with_covariance_stamped_to_gad(
 void GadNode::nav_sat_fix_callback(
   const sensor_msgs::msg::NavSatFix::SharedPtr msg
 ){
-  RCLCPP_INFO(this->get_logger(), "%d navsatfix: %lf, %lf, %lf", 
-              stream_ids["NAV_SAT_FIX_POS"],
-              msg->latitude,
-              msg->longitude,
-              msg->altitude
-  );
+  // RCLCPP_INFO(this->get_logger(), "%d navsatfix: %lf, %lf, %lf", 
+  //             stream_ids["NAV_SAT_FIX_POS"],
+  //             msg->latitude,
+  //             msg->longitude,
+  //             msg->altitude
+  // );
 
   auto gp = OxTS::GadPosition(stream_ids["NAV_SAT_FIX_POS"]);
 
@@ -185,7 +185,6 @@ void GadNode::twist_with_cov_stamped_callback(
   const geometry_msgs::msg::TwistWithCovarianceStamped::SharedPtr msg
 ){
   auto gv = OxTS::GadVelocity(stream_ids["TWIST_WITH_COV_STAMPED_VEL"]);
-
   // Convert twist into velocity aiding (angular rates not supported by GAD) 
   twist_with_covariance_stamped_to_gad(msg, gv);
   // Send GAD to file or unit, depending on config
