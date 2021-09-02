@@ -7,6 +7,8 @@
 
 #include <memory>
 #include <vector>
+#include <map>
+
 
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
@@ -66,11 +68,9 @@ class GadNode : public rclcpp::Node
   std::string file_out;
   std::string nav_sat_fix_topic;
   std::string odom_topic;
-
-  
+  std::map<std::string, int> stream_ids;
   // Other class members
   OxTS::GadHandler gad_handler; 
-
   // Subscribers
   rclcpp::Subscription<sensor_msgs::msg::NavSatFix>::SharedPtr subNavSatFix_;
   rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr subOdometry_;
@@ -89,6 +89,10 @@ class GadNode : public rclcpp::Node
     file_out          = this->declare_parameter("file_out", std::string(""));
     nav_sat_fix_topic = this->declare_parameter("nav_sat_fix_topic", "/ins/nav_sat_fix");
     odom_topic        = this->declare_parameter("odom_topic", "/ins/odom");
+    stream_ids["NAV_SAT_FIX_POS"] = this->declare_parameter("nav_sat_fix_pos_stream_id", 130);
+    stream_ids["ODOM_POS"] = this->declare_parameter("odom_pos_stream_id", 140);
+    stream_ids["ODOM_VEL"] = this->declare_parameter("odom_vel_stream_id", 141);
+    stream_ids["ODOM_ATT"] = this->declare_parameter("odom_att_stream_id", 142);
 
 
     switch (output_mode)

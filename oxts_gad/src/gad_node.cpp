@@ -89,11 +89,11 @@ void odom_to_gad_velocity(
 
 void GadNode::nav_sat_fix_callback(const sensor_msgs::msg::NavSatFix::SharedPtr msg)
 {
-  RCLCPP_INFO(this->get_logger(), "navsatfix: %lf, %lf, %lf", 
-                                  msg->latitude, msg->longitude, msg->altitude
+  RCLCPP_INFO(this->get_logger(), "%d navsatfix: %lf, %lf, %lf", 
+                                  stream_ids["NAV_SAT_FIX_POS"],msg->latitude, msg->longitude, msg->altitude
   );
 
-  OxTS::GadPosition gp = OxTS::GadPosition(130);
+  OxTS::GadPosition gp = OxTS::GadPosition(stream_ids["NAV_SAT_FIX_POS"]);
 
   gp.SetPosGeodetic(msg->latitude, msg->longitude, msg->altitude);
   gp.SetPosGeodeticVar(msg->position_covariance[0],
@@ -109,17 +109,17 @@ void GadNode::nav_sat_fix_callback(const sensor_msgs::msg::NavSatFix::SharedPtr 
 void GadNode::odometry_callback(const nav_msgs::msg::Odometry::SharedPtr msg)
 {
   // Create and send GAD position
-  OxTS::GadPosition gp = OxTS::GadPosition(140);
+  OxTS::GadPosition gp = OxTS::GadPosition(stream_ids["ODOM_POS"]);
   odom_to_gad_position(msg, gp);
   gad_handler.SendPacket(gp);
 
   // Create and send GAD attitude
-  OxTS::GadAttitude ga = OxTS::GadAttitude(141); 
+  OxTS::GadAttitude ga = OxTS::GadAttitude(stream_ids["ODOM_ATT"]); 
   odom_to_gad_att(msg, ga);
   gad_handler.SendPacket(ga);
 
   // Create and send GAD velocity
-  OxTS::GadVelocity gv = OxTS::GadVelocity(142);
+  OxTS::GadVelocity gv = OxTS::GadVelocity(stream_ids["ODOM_VEL"]);
   odom_to_gad_velocity(msg, gv);
   gad_handler.SendPacket(gv);
 

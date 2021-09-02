@@ -5,13 +5,17 @@ oxts_gad:
     output_mode: 0
     # IP address of the INS to send GAD to
     unit_ip: "192.168.25.217"
-    # File path to the output .gad file - BUG: crashing node with ~
+    # File path to the output .gad file - BUG: crashing node with ~ in path
     file_out: "recorded.gad"
 
     # sensor_msgs/NavSatFix topic
     nav_sat_fix_topic: /ins/nav_sat_fix
+    nav_sat_fix_pos_stream_id: 150
     # nav_msgs/Odometry topic
-    odom_topic: /ins/odom
+    odom_topic: /ins/odometry
+    odom_pos_stream_id: 140
+    odom_vel_stream_id: 141
+    odom_att_stream_id: 142
     # Other topics...
 
 
