@@ -32,6 +32,7 @@ find_package(Boost COMPONENTS system thread regex)
 add_executable(${PROJECT_NAME} 
                src/oxts_gad.cpp
                src/gad_node.cpp
+               src/gad_conversions.cpp
                src/nav_conversions.cpp
 )
 
