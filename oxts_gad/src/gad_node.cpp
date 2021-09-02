@@ -14,20 +14,20 @@ namespace OxTS
 
 void odom_to_gad_position(
   const nav_msgs::msg::Odometry::SharedPtr msg, 
-  OxTS::GadPosition& ga_out 
+  OxTS::GadPosition& gp_out 
 ){
-  ga_out.SetPosLocal(
+  gp_out.SetPosLocal(
     msg->pose.pose.position.x,
     msg->pose.pose.position.y,
     msg->pose.pose.position.z
   );
-  ga_out.SetPosLocalVar(
+  gp_out.SetPosLocalVar(
     msg->pose.covariance[0],
     msg->pose.covariance[7],
     msg->pose.covariance[14]
   );
-  ga_out.SetTimeVoid();
-  ga_out.SetAidingLeverArmConfig();
+  gp_out.SetTimeVoid();
+  gp_out.SetAidingLeverArmConfig();
 }
 
 
