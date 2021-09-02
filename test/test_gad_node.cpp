@@ -34,14 +34,24 @@ namespace tests::gad_node {
 BOOST_AUTO_TEST_SUITE(gad_node)  //, *boost::unit_test::fixture<Fixture>())
 
 
-BOOST_AUTO_TEST_CASE(odom_to_gad_position_conversion) {
-    auto msg = nav_msgs::msg::Odometry();
+BOOST_AUTO_TEST_CASE(odom_to_gad_position_conversion,
+    * utf::tolerance(0.1)
+) {
+    auto msg = std::make_shared<nav_msgs::msg::Odometry>();
+    msg->pose.pose.position.x = 1.0;
+    msg->pose.pose.position.y = 2.0;
+    msg->pose.pose.position.z = 3.0;
+    msg->pose.covariance[0]  = 4.0;
+    msg->pose.covariance[7]  = 5.0;
+    msg->pose.covariance[14] = 6.0;
+    int stream_id = 140;
+    auto gp = OxTS::GadPosition(stream_id);
 
-    msg.pose.pose.position.x = 1.0;
-    msg.pose.pose.position.y = 2.0;
-    msg.pose.pose.position.z = 3.0;
-
-    BOOST_CHECK_MESSAGE(1 == 1, "One is one");
+    OxTS::odom_to_gad_position(msg,gp);
+    std::vector<double> pos_ref = {1.0,2.0,3.0};
+    std::vector<double> pos_var_ref = {4.0,5.0,6.0};
+    BOOST_TEST(gp.GetPos() == pos_ref,  utt::per_element());
+    BOOST_TEST(gp.GetPosVar() == pos_var_ref,  utt::per_element());
 }
 
 

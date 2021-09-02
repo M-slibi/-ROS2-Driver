@@ -12,6 +12,24 @@
 namespace OxTS
 {
 
+void odom_to_gad_position(
+  const nav_msgs::msg::Odometry::SharedPtr msg, 
+  OxTS::GadPosition& ga_out 
+){
+  ga_out.SetPosLocal(
+    msg->pose.pose.position.x,
+    msg->pose.pose.position.y,
+    msg->pose.pose.position.z
+  );
+  ga_out.SetPosLocalVar(
+    msg->pose.covariance[0],
+    msg->pose.covariance[7],
+    msg->pose.covariance[14]
+  );
+  ga_out.SetTimeVoid();
+  ga_out.SetAidingLeverArmConfig();
+}
+
 
 void odom_to_gad_att(
   const nav_msgs::msg::Odometry::SharedPtr msg, 
@@ -74,23 +92,7 @@ void GadNode::nav_sat_fix_callback(const sensor_msgs::msg::NavSatFix::SharedPtr 
 void GadNode::odometry_callback(const nav_msgs::msg::Odometry::SharedPtr msg)
 {
   OxTS::GadPosition gp = OxTS::GadPosition(140);
-  gp.SetPosLocal(
-    msg->pose.pose.position.x,
-    msg->pose.pose.position.y,
-    msg->pose.pose.position.z
-  );
-  // RCLCPP_INFO(this->get_logger(), "local pos: %lf, %lf, %lf", 
-  //   msg->pose.pose.position.x,
-  //   msg->pose.pose.position.y,
-  //   msg->pose.pose.position.z
-  // );
-  gp.SetPosLocalVar(
-    msg->pose.covariance[0],
-    msg->pose.covariance[7],
-    msg->pose.covariance[14]
-  );
-  gp.SetTimeVoid();
-  gp.SetAidingLeverArmConfig();
+  odom_to_gad_position(msg, gp);
   gad_handler.SendPacket(gp);
 
   /// Orientation
@@ -105,14 +107,11 @@ void GadNode::odometry_callback(const nav_msgs::msg::Odometry::SharedPtr msg)
     msg->twist.twist.linear.y,
     msg->twist.twist.linear.z
   );
-
   gv.SetVelOdomVar(
-    0.5*msg->twist.covariance[0],
-    0.5*msg->twist.covariance[7],
-    0.5*msg->twist.covariance[14]
+    msg->twist.covariance[0],
+    msg->twist.covariance[7],
+    msg->twist.covariance[14]
   );
-
-
   gv.SetTimeVoid();
   gv.SetAidingLeverArmFixed(0.0,0.0,0.0);
   gad_handler.SendPacket(gv);

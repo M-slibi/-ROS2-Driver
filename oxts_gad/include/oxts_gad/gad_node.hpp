@@ -20,6 +20,11 @@
 namespace OxTS
 {
 
+void odom_to_gad_position(
+  const nav_msgs::msg::Odometry::SharedPtr msg, 
+  OxTS::GadPosition& ga_out 
+);
+
 void odom_to_gad_att(
   const nav_msgs::msg::Odometry::SharedPtr msg, 
   OxTS::GadAttitude& ga_out   
