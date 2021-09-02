@@ -30,6 +30,11 @@ void odom_to_gad_att(
   OxTS::GadAttitude& ga_out   
 );
 
+void odom_to_gad_velocity(
+  const nav_msgs::msg::Odometry::SharedPtr msg, 
+  OxTS::GadVelocity& gv_out 
+);
+
 enum OUTPUT_MODE
 {
   UDP = 0,

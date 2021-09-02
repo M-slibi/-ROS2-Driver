@@ -69,6 +69,23 @@ void odom_to_gad_att(
 
 }
 
+void odom_to_gad_velocity(
+  const nav_msgs::msg::Odometry::SharedPtr msg, 
+  OxTS::GadVelocity& gv_out 
+){
+  gv_out.SetVelOdom(
+    msg->twist.twist.linear.x,
+    msg->twist.twist.linear.y,
+    msg->twist.twist.linear.z
+  );
+  gv_out.SetVelOdomVar(
+    msg->twist.covariance[0],
+    msg->twist.covariance[7],
+    msg->twist.covariance[14]
+  );
+  gv_out.SetTimeVoid();
+  gv_out.SetAidingLeverArmFixed(0.0,0.0,0.0);
+}
 
 void GadNode::nav_sat_fix_callback(const sensor_msgs::msg::NavSatFix::SharedPtr msg)
 {
@@ -102,18 +119,7 @@ void GadNode::odometry_callback(const nav_msgs::msg::Odometry::SharedPtr msg)
 
   // Create Velocity GAD
   OxTS::GadVelocity gv = OxTS::GadVelocity(142);
-  gv.SetVelOdom(
-    msg->twist.twist.linear.x,
-    msg->twist.twist.linear.y,
-    msg->twist.twist.linear.z
-  );
-  gv.SetVelOdomVar(
-    msg->twist.covariance[0],
-    msg->twist.covariance[7],
-    msg->twist.covariance[14]
-  );
-  gv.SetTimeVoid();
-  gv.SetAidingLeverArmFixed(0.0,0.0,0.0);
+  odom_to_gad_velocity(msg, gv);
   gad_handler.SendPacket(gv);
 
 

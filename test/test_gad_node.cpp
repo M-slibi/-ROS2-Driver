@@ -103,6 +103,29 @@ BOOST_AUTO_TEST_CASE(odom_to_gad_orientation_conversion,
 
 }
 
+BOOST_AUTO_TEST_CASE(odom_to_gad_velocity_conversion,
+    * utf::tolerance(0.1)
+) {
+    // Setup
+    auto msg = std::make_shared<nav_msgs::msg::Odometry>();
+    msg->twist.twist.linear.x = 1.0;
+    msg->twist.twist.linear.y = 2.0;
+    msg->twist.twist.linear.z = 3.0;
+    msg->twist.covariance[0] = 4.0;
+    msg->twist.covariance[7] = 5.0;
+    msg->twist.covariance[14] = 6.0;
+    int stream_id = 143;
+    auto gv = OxTS::GadVelocity(stream_id);
+    // Execute
+    OxTS::odom_to_gad_velocity(msg,gv);
+    // Test
+    std::vector<double> vel_ref = {1.0,2.0,3.0};
+    std::vector<double> vel_var_ref = {4.0,5.0,6.0};
+    BOOST_TEST(gv.GetVel() == vel_ref,  utt::per_element());
+    BOOST_TEST(gv.GetVelVar() == vel_var_ref,  utt::per_element());
+}
+
+
 BOOST_AUTO_TEST_SUITE_END()
 
 } // namespace tests
