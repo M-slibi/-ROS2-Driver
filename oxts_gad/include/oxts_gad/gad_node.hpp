@@ -27,8 +27,8 @@ namespace OxTS
 {
 
 /**
- * Convert position data in ROS nav_msgs/Odometry to GAD Position
- * @param msg Odometry message to convert from
+ * Convert position data in ROS geometry_msgs/PoseWithCovariance to GAD Position
+ * @param msg Pose message to convert from
  * @param ga_out GAD object to store converted data in
  */
 void pose_with_covariance_to_gad_position(
@@ -36,21 +36,31 @@ void pose_with_covariance_to_gad_position(
   OxTS::GadPosition& ga_out 
 );
 /**
- * Convert orientation data in ROS nav_msgs/Odometry to GAD Attitude
- * @param msg Odometry message to convert from
+ * Convert orientation data in ROS geometry_msgs/PoseWithCovariance to GAD Attitude
+ * @param msg Pose message to convert from
  * @param ga_out GAD object to store converted data in
  */
 void pose_with_covariance_to_gad_attitude(
   const geometry_msgs::msg::PoseWithCovariance::SharedPtr msg,
   OxTS::GadAttitude& ga_out
 );
-
+/**
+ * Convert orientation data in ROS geometry_msgs/PoseWithCovariance to GAD Attitude
+ * @param msg Pose message to convert from
+ * @param ga_out GAD object to store converted data in
+ */
 void pose_with_covariance_to_gad(
   const geometry_msgs::msg::PoseWithCovariance::SharedPtr msg,
   OxTS::GadPosition& gp_out,
   OxTS::GadAttitude& ga_out
 );
 
+/**
+ * Convert orientation data in ROS geometry_msgs/PoseWithCovarianceStamped to 
+ * GAD Attitude. 
+ * @param msg Pose message to convert from
+ * @param ga_out GAD object to store converted data in
+ */
 void pose_with_covariance_stamped_to_gad(
   const geometry_msgs::msg::PoseWithCovarianceStamped::SharedPtr msg, 
   OxTS::GadPosition& gp_out,
@@ -59,11 +69,22 @@ void pose_with_covariance_stamped_to_gad(
 
 /**
  * Convert velocity data in ROS geometry_msgs/TwistWithCovariance to GAD Velocity
- * @param msg Odometry message to convert from
+ * @param msg Twist message to convert from
  * @param gv_out GAD object to store converted data in
  */
 void twist_with_covariance_to_gad_velocity(
   const geometry_msgs::msg::TwistWithCovariance::SharedPtr msg, 
+  OxTS::GadVelocity& gv_out 
+);
+
+/**
+ * Convert velocity data in ROS geometry_msgs/TwistWithCovarianceStamped to 
+ * GAD Velocity
+ * @param msg Twist message to convert from
+ * @param gv_out GAD object to store converted data in
+ */
+void twist_with_covariance_stamped_to_gad(
+  const geometry_msgs::msg::TwistWithCovarianceStamped::SharedPtr msg, 
   OxTS::GadVelocity& gv_out 
 );
 
