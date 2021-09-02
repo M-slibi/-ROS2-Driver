@@ -108,20 +108,20 @@ void GadNode::nav_sat_fix_callback(const sensor_msgs::msg::NavSatFix::SharedPtr 
 
 void GadNode::odometry_callback(const nav_msgs::msg::Odometry::SharedPtr msg)
 {
+  // Create and send GAD position
   OxTS::GadPosition gp = OxTS::GadPosition(140);
   odom_to_gad_position(msg, gp);
   gad_handler.SendPacket(gp);
 
-  /// Orientation
+  // Create and send GAD attitude
   OxTS::GadAttitude ga = OxTS::GadAttitude(141); 
   odom_to_gad_att(msg, ga);
   gad_handler.SendPacket(ga);
 
-  // Create Velocity GAD
+  // Create and send GAD velocity
   OxTS::GadVelocity gv = OxTS::GadVelocity(142);
   odom_to_gad_velocity(msg, gv);
   gad_handler.SendPacket(gv);
-
 
   /// Angular velocities not supported by GAD
 }
