@@ -8,6 +8,9 @@
 #include <memory>
 #include <vector>
 #include <map>
+#include <string>
+#include <sstream>
+
 
 
 #include "rclcpp/rclcpp.hpp"
@@ -152,23 +155,35 @@ class GadNode : public rclcpp::Node
     stream_ids["TWIST_WITH_COV_STAMPED_VEL"] =
       this->declare_parameter("twist_with_cov_stamped_vel_stream_id", 152);
 
+    std::ostringstream oss;
+    oss << "\nConverting:\n" 
+        << "NavSatFix : " << nav_sat_fix_topic << " -> GadPosition " << stream_ids["NAV_SAT_FIX_POS"] << "\n"
+        << "Odometry  : " << odom_topic << " -> GadPosition " << stream_ids["ODOM_POS"] << "\n"
+        << "Odometry  : " << odom_topic << " -> GadVelocity " << stream_ids["ODOM_VEL"] << "\n"
+        << "Odometry  : " << odom_topic << " -> GadAttitude " << stream_ids["ODOM_ATT"] << "\n"
+        << "Pose      : "     << pose_with_cov_stamped_topic <<  " -> GadPosition " << stream_ids["POSE_WITH_COV_STAMPED_POS"] << "\n"
+        << "Pose      : "     << pose_with_cov_stamped_topic << " -> GadAttitude " << stream_ids["POSE_WITH_COV_STAMPED_ATT"]  << "\n"
+        << "Twist     : "    << twist_with_cov_stamped_topic << " -> GadVelocity " << stream_ids["TWIST_WITH_COV_STAMPED_VEL"] << "\n";
+
+    RCLCPP_INFO(this->get_logger(), "%s", oss.str().c_str()  );
+
 
     switch (output_mode)
     {
       case OUTPUT_MODE::UDP:
         gad_handler.SetEncoderToBin();
         gad_handler.SetOutputModeToUdp(unit_ip);
-        RCLCPP_INFO(this->get_logger(), "INS IP: %s", unit_ip.c_str());
+        RCLCPP_INFO(this->get_logger(), "GAD output to IP: %s", unit_ip.c_str());
         break;
       case OUTPUT_MODE::CSV:
         gad_handler.SetEncoderToCsv();
         gad_handler.SetOutputModeToFile(file_out);
-        RCLCPP_INFO(this->get_logger(), "Output file: %s", file_out.c_str());
+        RCLCPP_INFO(this->get_logger(), "GAD output to file: %s", file_out.c_str());
         break;
       default:
         gad_handler.SetEncoderToBin();
         gad_handler.SetOutputModeToUdp(unit_ip);
-        RCLCPP_INFO(this->get_logger(), "INS IP: %s", unit_ip.c_str());
+        RCLCPP_INFO(this->get_logger(), "GAD output to IP: %s", unit_ip.c_str());
         break;
     }
 
