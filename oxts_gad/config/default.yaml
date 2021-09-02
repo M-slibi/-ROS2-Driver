@@ -16,7 +16,13 @@ oxts_gad:
     odom_pos_stream_id: 140
     odom_vel_stream_id: 141
     odom_att_stream_id: 142
-    # Other topics...
+    # geometry_msgs::msg::PoseWithCovarianceStamped
+    pose_with_cov_stamped_topic: /ins/pose
+    pose_with_cov_stamped_pos_stream_id: 150
+    pose_with_cov_stamped_att_stream_id: 151
+    # geometry_msgs::msg::TwistWithCovarianceStamped
+    twist_with_cov_stamped_topic: /ins/twist
+    twist_with_cov_stamped_vel_stream_id: 152
 
 
 #===============================================================================
