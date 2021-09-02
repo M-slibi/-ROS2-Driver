@@ -113,11 +113,50 @@ Useful sources of information around frames used for these messages can be found
 - [REP103](https://www.ros.org/reps/rep-0103.html)
 - [REP105](https://www.ros.org/reps/rep-0105.html#id8)
 
-## Input ROS messages
+## ROS2GAD
 
-Subscriber node not yet created.
+This node runs independently from the NCom side of the OxTS ROS2 driver. It 
+listens for messages on ROS topics (configurable) and converts them into OxTS 
+Generic Aiding. It can either send this data to an OxTS INS or to csv. 
 
-The subscriber node included in this driver listens for particular ROS topics to be sent from external aiding devices. These messages are converted from ROS to Generic Aiding messages, which are then sent to an INS. This allows straightforward integration of ROS devices as aiding sources to an OxTS INS.
+Generic Aiding is an interface which allows a user to send aiding data directly 
+to the navigation engine of the INS from any external device which is capable 
+of producing aiding in compatible coordinate frames. This in turn has the 
+potential to improve the overall navigation solution from the INS, particularly 
+if the aiding source is effective in areas where standard aiding sources such 
+as GNSS struggle.
+
+For more information on Generic Aiding, see 
+[here](https://oxts.gitlab.io/navigation/generic-aiding/gad-sdk/).
+
+This functionality is Feature Code protected. If you do not have the relevant 
+feature codes, contact support@oxts.com.
+
+### Supported ROS message types
+
+Topic names not specified here since they are configurable by the user.
+
+*  [sensor_msgs/msg/NavSatFix](http://docs.ros.org/en/api/sensor_msgs/html/msg/NavSatFix.html)
+    This topic is taken and converted to GadPosition, in the Geodetic 
+    coordinate frame.
+*  [nav_msgs/msg/Odometry](https://github.com/ros2/common_interfaces/blob/foxy/nav_msgs/msg/Odometry.msg)
+    This topic is converted into three separate Generic Aiding Data (GAD) 
+    packets: Position, Velocity, Attitude. The angular rates also in the 
+    Odometry message are not used since they are not supported by the interface.
+*  [geometry_msgs/msg/PoseWithCovarianceStamped](http://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/PoseWithCovarianceStamped.html)
+    This topic is converted into GAD Velocity.
+*  [geometry_msgs/msg/TwistWithCovarianceStamped](http://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/TwistWithCovarianceStamped.html)
+
+
+### Configuring the INS
+
+Using GAD with an INS requires some configuration on the INS itself, since it 
+needs to know certain pieces of information (depending on the aiding types in 
+use) like the local reference frame origin and the lever arm between the INS 
+and the aiding device in order to make use of the incoming data.
+
+...
+
 
 ## ROS1 compatibility
 
