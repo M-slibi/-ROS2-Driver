@@ -31,6 +31,7 @@ add_executable(tests
                tests.cpp
                test_gad_node.cpp
                ../oxts_gad/src/gad_node.cpp
+               ../oxts_gad/src/gad_conversions.cpp
                ../oxts_gad/src/nav_conversions.cpp
 )
 

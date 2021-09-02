@@ -8,14 +8,14 @@
 #include "geometry_msgs/msg/pose.hpp"
 
 
-#include "oxts_gad/gad_node.hpp"
+#include "oxts_gad/gad_conversions.hpp"
 #include "tests.hpp"
 
 namespace utf = boost::unit_test;
 namespace utt = boost::test_tools;
 
 
-namespace tests::gad_node {
+namespace tests::gad_conversions {
 
 // struct Fixture
 // {
@@ -32,7 +32,7 @@ namespace tests::gad_node {
 
 
 
-BOOST_AUTO_TEST_SUITE(gad_node)  //, *boost::unit_test::fixture<Fixture>())
+BOOST_AUTO_TEST_SUITE(gad_conversions)  //, *boost::unit_test::fixture<Fixture>())
 
 
 BOOST_AUTO_TEST_CASE(pose_with_covariance_to_gad_position_conversion,
