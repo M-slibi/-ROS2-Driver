@@ -20,16 +20,29 @@
 namespace OxTS
 {
 
+/**
+ * Convert position data in ROS nav_msgs/Odometry to GAD Position
+ * @param msg Odometry message to convert from
+ * @param ga_out GAD object to store converted data in
+ */
 void odom_to_gad_position(
   const nav_msgs::msg::Odometry::SharedPtr msg, 
   OxTS::GadPosition& ga_out 
 );
-
+/**
+ * Convert orientation data in ROS nav_msgs/Odometry to GAD Attitude
+ * @param msg Odometry message to convert from
+ * @param ga_out GAD object to store converted data in
+ */
 void odom_to_gad_att(
   const nav_msgs::msg::Odometry::SharedPtr msg, 
   OxTS::GadAttitude& ga_out   
 );
-
+/**
+ * Convert velocity data in ROS nav_msgs/Odometry to GAD Velocity
+ * @param msg Odometry message to convert from
+ * @param gv_out GAD object to store converted data in
+ */
 void odom_to_gad_velocity(
   const nav_msgs::msg::Odometry::SharedPtr msg, 
   OxTS::GadVelocity& gv_out 
@@ -40,11 +53,14 @@ enum OUTPUT_MODE
   UDP = 0,
   CSV = 1
 };
-
+/**
+ * ROS node to listen for specified ROS topics, convert them to GAD, and either 
+ * send them to an OxTS INS or to CSV.
+ */
 class GadNode : public rclcpp::Node
 {
-  public:
-  // Parameters
+  private:
+  // Configurable parameters
   int         output_mode;
   std::string unit_ip;
   std::string file_out;
@@ -58,9 +74,11 @@ class GadNode : public rclcpp::Node
   // Subscribers
   rclcpp::Subscription<sensor_msgs::msg::NavSatFix>::SharedPtr subNavSatFix_;
   rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr subOdometry_;
+  // Topic callbacks
+  void nav_sat_fix_callback(const sensor_msgs::msg::NavSatFix::SharedPtr msg);
+  void odometry_callback(const nav_msgs::msg::Odometry::SharedPtr msg);
 
-
-
+  public:
   // Constructor
   GadNode(const rclcpp::NodeOptions &options)
   : Node("oxts_gad", options)
@@ -104,12 +122,6 @@ class GadNode : public rclcpp::Node
         std::bind(&GadNode::odometry_callback, this, std::placeholders::_1)
     );
   }
-
-  private:
-
-  void nav_sat_fix_callback(const sensor_msgs::msg::NavSatFix::SharedPtr msg);
-
-  void odometry_callback(const nav_msgs::msg::Odometry::SharedPtr msg);
 
 };
 
