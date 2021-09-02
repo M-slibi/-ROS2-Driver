@@ -88,7 +88,7 @@ void odom_to_gad(
   OxTS::GadVelocity& gv_out 
 );
 
-} // OxTS
+} // namespace OxTS
 
 
 
