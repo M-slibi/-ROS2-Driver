@@ -49,10 +49,13 @@ void pose_with_covariance_to_gad_attitude(
     r * NAV_CONST::RADS2DEG
   );
 
+  // ROS covariance matrix order is:
+  // (x, y, z, rotation about X axis, rotation about Y axis, rotation about Z axis)
+  // GAD covariance order for attitude is rot Z (Yaw), rot Y (Pitch), rot X (Roll)
   ga_out.SetAttVar(
-    msg->covariance[0],
-    msg->covariance[7],
-    msg->covariance[14]
+    msg->covariance[35],
+    msg->covariance[28],
+    msg->covariance[21]
   );
   ga_out.SetTimeVoid();
   // Attitude *must* be associated to the KF.
