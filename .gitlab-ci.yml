@@ -74,5 +74,10 @@ test:
   stage: Test
   script:
     - echo "Running unit tests"
-    - ./install/tests/lib/tests/tests
+    - ls
+    - ls install
+    - ls install/tests
+    - ls install/test
+
+    - ./install/test/lib/tests/tests
 
