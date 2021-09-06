@@ -71,12 +71,7 @@ test:
   script:
     - echo "Building unit tests"
     - source install/setup.sh
-    - ls
-    - cd src
-    - ls
-    - cd oxts
-    - ls
-    - cd src/oxts/tests && mkdir build && cd build
+    - cd tests && mkdir build && cd build
     - cmake .. && cmake --build .
     - echo "Running unit tests"
     - ./install/tests/lib/tests/tests
