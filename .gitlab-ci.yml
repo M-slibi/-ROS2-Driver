@@ -73,11 +73,6 @@ compile:
 test:
   stage: Test
   script:
-    - echo "Building unit tests"
-    - source install/setup.sh
-    - ls
-    - cd test && mkdir build && cd build
-    - cmake .. && cmake --build .
     - echo "Running unit tests"
     - ./install/tests/lib/tests/tests
 
