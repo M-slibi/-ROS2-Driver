@@ -49,7 +49,7 @@ pages:
 compile:
   stage: Build
   script:
-    - "echo Cloning OxTS SDK from GitLab repo"
+    - "echo Cloning OxTS GAD SDK from GitLab repo"
     - "git clone https://oxts-sdk-ci:QsKKRWRw5Bag8gzcWGns@gitlab.com/oxts/navigation/generic-aiding/gad-sdk.git" 
     - "echo Building OxTS SDK"
     - cd gad-sdk && mkdir _build && cd _build 
@@ -70,7 +70,12 @@ test:
   stage: Test
   script:
     - echo "Building unit tests"
-    - source /opt/ros/foxy/setup.bash && source install/setup.sh
+    - source install/setup.sh
+    - ls
+    - cd src
+    - ls
+    - cd oxts
+    - ls
     - cd src/oxts/tests && mkdir build && cd build
     - cmake .. && cmake --build .
     - echo "Running unit tests"
