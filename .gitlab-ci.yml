@@ -60,6 +60,10 @@ compile:
     - mkdir -p src/oxts
     - mv oxts*/ src/oxts
     - colcon build
+  artifacts:
+    paths:
+      - build/
+      - install/
       
 
 test:
