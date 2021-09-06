@@ -17,10 +17,12 @@ cache:
 stages:
  - Build
  - Deploy
+ - Test
 
 before_script:
   # install package dependencies
   - apt update && apt install libboost-all-dev -y
+  - apt-get install cmake
   - source /opt/ros/foxy/setup.bash
 
 # deploy pages only on master branch
@@ -47,6 +49,13 @@ pages:
 compile:
   stage: Build
   script:
-   - mkdir -p src/oxts
-   - mv oxts*/ src/oxts
-   - colcon build
+    - "echo Cloning OxTS SDK from GitLab repo"
+    - "git clone https://oxts-sdk-ci:QsKKRWRw5Bag8gzcWGns@gitlab.com/oxts/navigation/generic-aiding/gad-sdk.git" 
+    - "echo Building OxTS SDK"
+    - mkdir _build && cd _build 
+    - cmake .. && cmake --build . --target install
+    - "echo OxTS SDK installed"
+    - "echo Building ROS2 Driver"
+    - mkdir -p src/oxts
+    - mv oxts*/ src/oxts
+    - colcon build
