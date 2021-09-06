@@ -52,7 +52,7 @@ compile:
     - "echo Cloning OxTS SDK from GitLab repo"
     - "git clone https://oxts-sdk-ci:QsKKRWRw5Bag8gzcWGns@gitlab.com/oxts/navigation/generic-aiding/gad-sdk.git" 
     - "echo Building OxTS SDK"
-    - cd oxts-sdk && mkdir _build && cd _build 
+    - cd gad-sdk && mkdir _build && cd _build 
     - cmake .. && cmake --build . --target install
     - "echo OxTS SDK installed"
     - cd ../..
