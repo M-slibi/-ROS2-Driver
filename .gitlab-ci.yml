@@ -77,7 +77,7 @@ test:
     - ls
     - ls install
     - ls install/tests
-    - ls install/test
-
-    - ./install/test/lib/tests/tests
+    - ls install/tests/lib/
+    - ls install/tests/lib/tests
+    - ./install/tests/lib/tests/tests
 
