@@ -71,6 +71,7 @@ test:
   script:
     - echo "Building unit tests"
     - source install/setup.sh
+    - ls
     - cd tests && mkdir build && cd build
     - cmake .. && cmake --build .
     - echo "Running unit tests"
