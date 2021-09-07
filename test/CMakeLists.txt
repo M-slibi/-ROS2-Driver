@@ -64,6 +64,3 @@ target_link_libraries (tests
         oxts-sdk-gal-cpp
 )
 
-install(TARGETS tests
-        DESTINATION lib/${PROJECT_NAME}
-)
