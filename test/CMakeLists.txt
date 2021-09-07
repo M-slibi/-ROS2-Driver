@@ -1,4 +1,3 @@
-
 cmake_minimum_required(VERSION 3.8)
 project(tests VERSION 0.1.0)
 
@@ -26,6 +25,8 @@ find_package(tf2_ros REQUIRED)
 find_package(tf2_kdl REQUIRED)
 find_package(oxts_msgs REQUIRED)
 find_package(oxts-sdk-gal-cpp REQUIRED)
+
+message(STATUS "current source dir: ${CMAKE_CURRENT_SOURCE_DIR}")
 
 add_executable(tests
                tests.cpp

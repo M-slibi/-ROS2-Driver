@@ -49,7 +49,7 @@ pages:
 compile:
   stage: Build
   script:
-    - "echo Cloning OxTS SDK from GitLab repo"
+    - "echo Cloning OxTS GAD SDK from GitLab repo"
     - "git clone https://oxts-sdk-ci:QsKKRWRw5Bag8gzcWGns@gitlab.com/oxts/navigation/generic-aiding/gad-sdk.git" 
     - "echo Building OxTS SDK"
     - cd gad-sdk && mkdir _build && cd _build 
@@ -59,4 +59,20 @@ compile:
     - "echo Building ROS2 Driver"
     - mkdir -p src/oxts
     - mv oxts*/ src/oxts
+    - mv test/ src/oxts/test
+    - pwd
+    - ls
+    - ls src/oxts
     - colcon build
+  artifacts:
+    paths:
+      - build/
+      - install/
+      
+
+test:
+  stage: Test
+  script:
+    - echo "Running unit tests"
+    - ./install/tests/lib/tests/tests
+
