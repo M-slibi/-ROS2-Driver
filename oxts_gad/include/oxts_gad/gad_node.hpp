@@ -10,6 +10,7 @@
 #include <map>
 #include <string>
 #include <sstream>
+#include <tuple>
 
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/nav_sat_fix.hpp"
@@ -40,6 +41,9 @@ class GadNode : public rclcpp::Node
   private:
   // Configurable parameters
   int         output_mode;
+  int         timestamp_mode;
+  std::string timestamp;
+  double      utc_offset;
   std::string unit_ip;
   std::string file_out;
   std::string nav_sat_fix_topic;
@@ -66,16 +70,19 @@ class GadNode : public rclcpp::Node
     const geometry_msgs::msg::TwistWithCovarianceStamped::SharedPtr msg
   );
 
+
   public:
   // Constructor
   GadNode(const rclcpp::NodeOptions &options)
   : Node("oxts_gad", options)
   {
     // Load parameters
-    output_mode       = this->declare_parameter("output_mode", 0);
-    unit_ip           = this->declare_parameter("unit_ip", std::string(""));
-    file_out          = this->declare_parameter("file_out", std::string(""));
-    nav_sat_fix_topic = this->declare_parameter("nav_sat_fix_topic", "/ins/nav_sat_fix");
+    output_mode        = this->declare_parameter("output_mode", 0);
+    utc_offset         = this->declare_parameter("utc_offset", UTC_OFFSET_DEFAULT);
+    timestamp          = this->declare_parameter("timestamp", "gps");
+    unit_ip            = this->declare_parameter("unit_ip", std::string(""));
+    file_out           = this->declare_parameter("file_out", std::string(""));
+    nav_sat_fix_topic  = this->declare_parameter("nav_sat_fix_topic", "/ins/nav_sat_fix");
     stream_ids["NAV_SAT_FIX_POS"] =
       this->declare_parameter("nav_sat_fix_pos_stream_id", 130);
     odom_topic        = this->declare_parameter("odom_topic", "/ins/odom");
@@ -104,6 +111,12 @@ class GadNode : public rclcpp::Node
         << "Twist     : "    << twist_with_cov_stamped_topic << " -> GadVelocity " << stream_ids["TWIST_WITH_COV_STAMPED_VEL"] << "\n";
 
     RCLCPP_INFO(this->get_logger(), "%s", oss.str().c_str()  );
+
+    this->timestamp_mode = TIMESTAMP_MODE[this->timestamp];
+    RCLCPP_INFO(this->get_logger(), "GAD timestamp mode: %s  (%d)", 
+      this->timestamp.c_str(), 
+      this->timestamp_mode 
+    );
 
 
     switch (output_mode)

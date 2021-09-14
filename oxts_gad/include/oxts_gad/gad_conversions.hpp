@@ -22,6 +22,49 @@
 namespace OxTS
 {
 
+static const double UTC_OFFSET_DEFAULT = 18.0;
+
+static std::map<std::string, int> TIMESTAMP_MODE {
+  {"void", 0},
+  {"latency", 1},
+  {"pps", 2},
+  {"gps", 3}
+};
+
+class GpsTime {
+  double week_;
+  double secs_;
+public:
+  GpsTime(){
+    week_ = 0.0;
+    secs_ = 0.0;
+  }
+  GpsTime(double week, double secs) : 
+    week_(week),
+    secs_(secs)
+  {}
+  bool operator== (const GpsTime &g1){
+      return (getWeek() == g1.getWeek() &&
+              getSecs() == g1.getSecs());
+  }
+  double getWeek() const {return week_;}
+  double getSecs() const {return secs_;}
+  void setWeek(double week) {week_ = week;}
+  void setSecs(double secs) {secs_ = secs;}
+}; 
+
+GpsTime convert_unix_gps_time(
+  const double secs, 
+  const double nanosecs,
+  const double utc_offset=UTC_OFFSET_DEFAULT
+);
+
+template<class T>
+void timestamp_gad_from_msg_gps(
+  OxTS::Gad& gad,
+  const T msg,
+  double utc_offset=UTC_OFFSET_DEFAULT
+);
 /**
  * Convert position data in ROS geometry_msgs/PoseWithCovariance to GAD Position
  * @param msg Pose message to convert from
@@ -50,6 +93,14 @@ void pose_with_covariance_to_gad(
   OxTS::GadPosition& gp_out,
   OxTS::GadAttitude& ga_out
 );
+
+template<class T>
+void timestamp_gad(
+  OxTS::Gad& gad,
+  T& msg,
+  const int timestamp_mode,
+  const double utc_offset=UTC_OFFSET_DEFAULT
+);
 /**
  * Convert orientation data in ROS geometry_msgs/PoseWithCovarianceStamped to 
  * GAD Attitude. 
@@ -59,14 +110,27 @@ void pose_with_covariance_to_gad(
 void pose_with_covariance_stamped_to_gad(
   const geometry_msgs::msg::PoseWithCovarianceStamped::SharedPtr msg, 
   OxTS::GadPosition& gp_out,
-  OxTS::GadAttitude& ga_out 
+  OxTS::GadAttitude& ga_out,
+  const int timestamp_mode,
+  const double utc_offset=UTC_OFFSET_DEFAULT
 );
 /**
  * Convert velocity data in ROS geometry_msgs/TwistWithCovariance to GAD Velocity
+ * in an odometry frame
  * @param msg Twist message to convert from
  * @param gv_out GAD object to store converted data in
  */
-void twist_with_covariance_to_gad_velocity(
+void twist_with_covariance_to_gad_velocity_odom(
+  const geometry_msgs::msg::TwistWithCovariance::SharedPtr msg, 
+  OxTS::GadVelocity& gv_out 
+);
+/**
+ * Convert velocity data in ROS geometry_msgs/TwistWithCovariance to GAD Velocity
+ * in a local ENU frame
+ * @param msg Twist message to convert from
+ * @param gv_out GAD object to store converted data in
+ */
+void twist_with_covariance_to_gad_velocity_local(
   const geometry_msgs::msg::TwistWithCovariance::SharedPtr msg, 
   OxTS::GadVelocity& gv_out 
 );
@@ -78,14 +142,18 @@ void twist_with_covariance_to_gad_velocity(
  */
 void twist_with_covariance_stamped_to_gad(
   const geometry_msgs::msg::TwistWithCovarianceStamped::SharedPtr msg, 
-  OxTS::GadVelocity& gv_out 
+  OxTS::GadVelocity& gv_out,
+  int timestamp_mode,
+  const double utc_offset=UTC_OFFSET_DEFAULT
 );
 
 void odom_to_gad(
   const nav_msgs::msg::Odometry::SharedPtr msg, 
   OxTS::GadPosition& gp_out, 
   OxTS::GadAttitude& ga_out, 
-  OxTS::GadVelocity& gv_out 
+  OxTS::GadVelocity& gv_out, 
+  const int timestamp_mode,
+  const double utc_offset=UTC_OFFSET_DEFAULT
 );
 
 } // namespace OxTS

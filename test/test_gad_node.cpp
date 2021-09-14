@@ -7,7 +7,6 @@
 #include "nav_msgs/msg/odometry.hpp"
 #include "geometry_msgs/msg/pose.hpp"
 
-
 #include "oxts_gad/gad_conversions.hpp"
 #include "tests.hpp"
 
@@ -34,6 +33,22 @@ namespace tests::gad_conversions {
 
 BOOST_AUTO_TEST_SUITE(gad_conversions)  //, *boost::unit_test::fixture<Fixture>())
 
+
+BOOST_AUTO_TEST_CASE(convert_unix_gps_time,
+    * utf::tolerance(0.1)
+){
+    double secs = 1631607897;
+    double nanosecs = 400000000; // (0.4s)
+    double utc_offset = 18;
+    OxTS::GpsTime time = OxTS::convert_unix_gps_time(
+        secs, 
+        nanosecs,
+        utc_offset
+    );    
+    OxTS::GpsTime reference_time(2175, 203115.4);
+    
+    BOOST_TEST((time == reference_time));
+}
 
 BOOST_AUTO_TEST_CASE(pose_with_covariance_to_gad_position_conversion,
     * utf::tolerance(0.1)
@@ -102,7 +117,7 @@ BOOST_AUTO_TEST_CASE(odom_to_gad_orientation_conversion,
 
 }
 
-BOOST_AUTO_TEST_CASE(twist_with_covariance_to_gad_velocity_conversion,
+BOOST_AUTO_TEST_CASE(twist_with_covariance_to_gad_velocity_odom_conversion,
     * utf::tolerance(0.1)
 ) {
     // Setup
@@ -116,7 +131,7 @@ BOOST_AUTO_TEST_CASE(twist_with_covariance_to_gad_velocity_conversion,
     int stream_id = 143;
     auto gv = OxTS::GadVelocity(stream_id);
     // Execute
-    OxTS::twist_with_covariance_to_gad_velocity(msg,gv);
+    OxTS::twist_with_covariance_to_gad_velocity_odom(msg,gv);
     // Test
     std::vector<double> vel_ref = {1.0,2.0,3.0};
     std::vector<double> vel_var_ref = {4.0,5.0,6.0};
