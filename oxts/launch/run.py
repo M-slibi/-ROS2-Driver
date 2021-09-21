@@ -29,9 +29,9 @@ def generate_launch_description():
     with open(ins_param_path, "r") as f:
         ins_params = yaml.safe_load(f)["oxts_ins"]["ros__parameters"]
     
-    gad_param_path = os.path.join(gad_dir, "config", parameters_file_name)
-    with open(gad_param_path, "r") as f:
-        gad_params = yaml.safe_load(f)["oxts_gad"]["ros__parameters"]
+    # gad_param_path = os.path.join(gad_dir, "config", parameters_file_name)
+    # with open(gad_param_path, "r") as f:
+    #     gad_params = yaml.safe_load(f)["oxts_gad"]["ros__parameters"]
 
     use_sim_time  = LaunchConfiguration("use_sim_time", default="False")
     wait_for_init = LaunchConfiguration("wait_for_init", default="True")
@@ -79,15 +79,15 @@ def generate_launch_description():
         ],
     )
 
-    oxts_gad_node = Node(
-        package="oxts_gad",
-        executable="oxts_gad",
-        name="oxts_gad",
-        output="screen",
-        parameters=[
-            gad_params,
-        ],
-    )
+    # oxts_gad_node = Node(
+    #     package="oxts_gad",
+    #     executable="oxts_gad",
+    #     name="oxts_gad",
+    #     output="screen",
+    #     parameters=[
+    #         gad_params,
+    #     ],
+    # )
 
     # create launch descroption and populate
     ld = LaunchDescription()
@@ -99,6 +99,6 @@ def generate_launch_description():
     # launch nodes
     ld.add_action(oxts_driver_node)
     ld.add_action(oxts_ins_node)
-    ld.add_action(oxts_gad_node)
+    # ld.add_action(oxts_gad_node)
 
     return ld
