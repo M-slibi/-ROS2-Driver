@@ -55,6 +55,14 @@ The currently available launch files are as follows:
 * `visualise.py` - Launches the driver, as well as `robot_state_publisher` and `rviz2` (the latter can be disabled with `use_rviz:=False`)
 * `run.py` - Only launches the driver, without `robot_state_publisher` and no `use_rviz` option
 
+You can also override options from the configuration file at the command-line, e.g.:
+
+```bash
+ros2 launch oxts run.py topic_prefix:=myprefix
+```
+
+**Be aware that currently, this only works for some options.**
+
 ## Getting started
 For a basic tutorial on using this driver, see the ["getting started" guide](./Getting%20Started.md).
 
