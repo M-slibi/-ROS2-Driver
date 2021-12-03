@@ -168,7 +168,7 @@ void twist_with_covariance_to_gad_velocity_local(
   gv_out.SetAidingLeverArmConfig();
 }
 
-void twist_with_covariance_stamped_to_gad(
+void twist_with_covariance_stamped_to_gad_velocity(
   const geometry_msgs::msg::TwistWithCovarianceStamped::SharedPtr msg, 
   OxTS::GadVelocity& gv_out,
   int timestamp_mode,

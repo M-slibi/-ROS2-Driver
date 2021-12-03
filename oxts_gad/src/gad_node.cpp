@@ -67,7 +67,7 @@ void GadNode::twist_with_cov_stamped_callback(
 ){
   auto gv = OxTS::GadVelocity(stream_ids["TWIST_WITH_COV_STAMPED_VEL"]);
   // Convert twist into velocity aiding (angular rates not supported by GAD) 
-  twist_with_covariance_stamped_to_gad(msg, gv, this->timestamp_mode, this->utc_offset);
+  twist_with_covariance_stamped_to_gad_velocity(msg, gv, this->timestamp_mode, this->utc_offset);
   // Send GAD to file or unit, depending on config
   gad_handler.SendPacket(gv);
 }
