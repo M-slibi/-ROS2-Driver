@@ -21,8 +21,11 @@ oxts_gad:
     pose_with_cov_stamped_pos_stream_id: 150
     pose_with_cov_stamped_att_stream_id: 151
     # geometry_msgs/msg/TwistWithCovarianceStamped
-    twist_with_cov_stamped_topic: /ublox/fix_velocity #/ins/twist
+    twist_with_cov_stamped_topic_vel: /ublox/fix_velocity #/ins/twist
     twist_with_cov_stamped_vel_stream_id: 152
+    # geometry_msgs/msg/TwistWithCovarianceStamped
+    twist_with_cov_stamped_topic_speed: /off
+    twist_with_cov_stamped_speed_stream_id: 153
 
     # Timestamp mode {void, gps}
     timestamp: gps

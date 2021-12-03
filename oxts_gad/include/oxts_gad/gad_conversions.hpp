@@ -135,6 +135,15 @@ void twist_with_covariance_to_gad_velocity_local(
   OxTS::GadVelocity& gv_out 
 );
 /**
+ * Convert 1D velocity data in ROS geometry_msgs/TwistWithCovariance to GAD Speed
+ * @param msg Twist message to convert from
+ * @param gs_out GAD object to store converted data in
+ */
+void twist_with_covariance_to_gad_speed(
+  const geometry_msgs::msg::TwistWithCovariance::SharedPtr msg, 
+  OxTS::GadSpeed& gv_out 
+);
+/**
  * Convert velocity data in ROS geometry_msgs/TwistWithCovarianceStamped to 
  * GAD Velocity
  * @param msg Twist message to convert from
@@ -143,6 +152,18 @@ void twist_with_covariance_to_gad_velocity_local(
 void twist_with_covariance_stamped_to_gad_velocity(
   const geometry_msgs::msg::TwistWithCovarianceStamped::SharedPtr msg, 
   OxTS::GadVelocity& gv_out,
+  int timestamp_mode,
+  const double utc_offset=UTC_OFFSET_DEFAULT
+);
+/**
+ * Convert velocity data in ROS geometry_msgs/TwistWithCovarianceStamped to 
+ * GAD Speed
+ * @param msg Twist message to convert from
+ * @param gs_out GAD object to store converted data in
+ */
+void twist_with_covariance_stamped_to_gad_speed(
+  const geometry_msgs::msg::TwistWithCovarianceStamped::SharedPtr msg, 
+  OxTS::GadSpeed& gs_out,
   int timestamp_mode,
   const double utc_offset=UTC_OFFSET_DEFAULT
 );

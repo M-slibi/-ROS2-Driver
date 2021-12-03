@@ -168,6 +168,16 @@ void twist_with_covariance_to_gad_velocity_local(
   gv_out.SetAidingLeverArmConfig();
 }
 
+void twist_with_covariance_to_gad_speed(
+  const geometry_msgs::msg::TwistWithCovariance::SharedPtr msg, 
+  OxTS::GadSpeed& gs_out 
+){
+  gs_out.SetSpeedFw(msg->twist.linear.x);
+  gs_out.SetSpeedFwVar(msg->covariance[0]);
+  gs_out.SetTimeVoid();
+  gs_out.SetAidingLeverArmOptimising();
+}
+
 void twist_with_covariance_stamped_to_gad_velocity(
   const geometry_msgs::msg::TwistWithCovarianceStamped::SharedPtr msg, 
   OxTS::GadVelocity& gv_out,
@@ -178,6 +188,18 @@ void twist_with_covariance_stamped_to_gad_velocity(
     std::make_shared<geometry_msgs::msg::TwistWithCovariance>(msg->twist);
   twist_with_covariance_to_gad_velocity_local(twist, gv_out);
   timestamp_gad(gv_out, msg, timestamp_mode, utc_offset);
+}
+
+void twist_with_covariance_stamped_to_gad_speed(
+  const geometry_msgs::msg::TwistWithCovarianceStamped::SharedPtr msg, 
+  OxTS::GadSpeed& gs_out,
+  int timestamp_mode,
+  const double utc_offset
+){
+  auto twist = 
+    std::make_shared<geometry_msgs::msg::TwistWithCovariance>(msg->twist);
+  twist_with_covariance_to_gad_speed(twist, gs_out);
+  timestamp_gad(gs_out, msg, timestamp_mode, utc_offset);
 }
 
 void odom_to_gad(

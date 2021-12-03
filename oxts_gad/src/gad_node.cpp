@@ -62,7 +62,7 @@ void GadNode::pose_with_cov_stamped_callback(
   gad_handler.SendPacket(ga);
 }
 
-void GadNode::twist_with_cov_stamped_callback(
+void GadNode::twist_with_cov_stamped_vel_callback(
   const geometry_msgs::msg::TwistWithCovarianceStamped::SharedPtr msg
 ){
   auto gv = OxTS::GadVelocity(stream_ids["TWIST_WITH_COV_STAMPED_VEL"]);
@@ -70,6 +70,16 @@ void GadNode::twist_with_cov_stamped_callback(
   twist_with_covariance_stamped_to_gad_velocity(msg, gv, this->timestamp_mode, this->utc_offset);
   // Send GAD to file or unit, depending on config
   gad_handler.SendPacket(gv);
+}
+
+void GadNode::twist_with_cov_stamped_speed_callback(
+  const geometry_msgs::msg::TwistWithCovarianceStamped::SharedPtr msg
+){
+  auto gs = OxTS::GadSpeed(stream_ids["TWIST_WITH_COV_STAMPED_SPEED"]);
+  // Convert twist into 1D speed aiding 
+  twist_with_covariance_stamped_to_gad_speed(msg, gs, this->timestamp_mode, this->utc_offset);
+  // Send GAD to file or unit, depending on config
+  gad_handler.SendPacket(gs);
 }
 
 
