@@ -136,24 +136,31 @@ feature codes, contact support@oxts.com.
 
 Topic names not specified here since they are configurable by the user.
 
-*  [sensor_msgs/msg/NavSatFix](http://docs.ros.org/en/api/sensor_msgs/html/msg/NavSatFix.html)
+*  [NavSatFix](http://docs.ros.org/en/api/sensor_msgs/html/msg/NavSatFix.html)
     This topic is taken and converted to GadPosition, in the Geodetic 
     coordinate frame.
-*  [nav_msgs/msg/Odometry](https://github.com/ros2/common_interfaces/blob/foxy/nav_msgs/msg/Odometry.msg)
+*  [Odometry](https://github.com/ros2/common_interfaces/blob/foxy/nav_msgs/msg/Odometry.msg)
     This topic is converted into three separate Generic Aiding Data (GAD) 
     packets: Position, Velocity, Attitude. The angular rates also in the 
-    Odometry message are not used since they are not supported by the interface.
-*  [geometry_msgs/msg/PoseWithCovarianceStamped](http://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/PoseWithCovarianceStamped.html)
-    This topic is converted into GAD Velocity.
-*  [geometry_msgs/msg/TwistWithCovarianceStamped](http://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/TwistWithCovarianceStamped.html)
+    Odometry message are not used since they are not supported by the Generic Aiding interface.
+*  [PoseWithCovarianceStamped](http://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/PoseWithCovarianceStamped.html)
+    This topic is converted into GAD Position.
+*  [TwistWithCovarianceStamped](http://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/TwistWithCovarianceStamped.html)
+    This topic is converted into GAD Velocity in an ENU local frame.
+*  [TwistWithCovarianceStamped](http://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/TwistWithCovarianceStamped.html)
+    This topic is converted into 1D GAD Speed. Can be used to create zero 
+    velocity updates on the INS. 
 
 
 ### Configuring the INS
 
 Using GAD with an INS requires some configuration on the INS itself, since it 
 needs to know certain pieces of information (depending on the aiding types in 
-use) like the local reference frame origin and the lever arm between the INS 
-and the aiding device in order to make use of the incoming data.
+use) like:
+* The local reference frame origin and orientation 
+* The lever arm between the INS and the aiding device 
+
+in order to make use of the incoming data.
 
 ...
 
@@ -162,7 +169,7 @@ and the aiding device in order to make use of the incoming data.
 
 ROS1 and ROS2 are not directly compatible, as a result of breaking changes between the two. As such, ROS2 messages cannot be consumed directly by ROS1 nodes. To get around this, the ROS1 bridge can be used to convert messages and send them on.
 
-LINK - https://github.com/ros2/ros1_bridge
+[ROS1 Bridge](https://github.com/ros2/ros1_bridge)
 
 
 
