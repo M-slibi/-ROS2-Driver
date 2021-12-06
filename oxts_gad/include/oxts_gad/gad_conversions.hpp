@@ -157,7 +157,7 @@ void twist_with_covariance_stamped_to_gad_velocity(
 );
 /**
  * Convert velocity data in ROS geometry_msgs/TwistWithCovarianceStamped to 
- * GAD Speed
+ * GAD Speed. Can be used for zero velocity updates.
  * @param msg Twist message to convert from
  * @param gs_out GAD object to store converted data in
  */
