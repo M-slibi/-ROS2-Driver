@@ -52,6 +52,7 @@ class GadNode : public rclcpp::Node
   std::string twist_with_cov_stamped_topic_vel;
   std::string twist_with_cov_stamped_topic_speed;
   std::map<std::string, int> stream_ids;
+  std::string OFF_TOPIC = "/off";
   // Other class members
   OxTS::GadHandler gad_handler; 
   // Subscribers
@@ -110,19 +111,6 @@ class GadNode : public rclcpp::Node
     stream_ids["TWIST_WITH_COV_STAMPED_SPEED"] =
       this->declare_parameter("twist_with_cov_stamped_speed_stream_id", 153);
 
-    std::ostringstream oss;
-    oss << "\nConverting:\n" 
-        << "NavSatFix : " << nav_sat_fix_topic << " -> GadPosition " << stream_ids["NAV_SAT_FIX_POS"] << "\n"
-        << "Odometry  : " << odom_topic << " -> GadPosition " << stream_ids["ODOM_POS"] << "\n"
-        << "Odometry  : " << odom_topic << " -> GadVelocity " << stream_ids["ODOM_VEL"] << "\n"
-        << "Odometry  : " << odom_topic << " -> GadAttitude " << stream_ids["ODOM_ATT"] << "\n"
-        << "Pose      : " << pose_with_cov_stamped_topic <<  " -> GadPosition " << stream_ids["POSE_WITH_COV_STAMPED_POS"] << "\n"
-        << "Pose      : " << pose_with_cov_stamped_topic << " -> GadAttitude " << stream_ids["POSE_WITH_COV_STAMPED_ATT"]  << "\n"
-        << "Twist     : " << twist_with_cov_stamped_topic_vel << " -> GadVelocity " << stream_ids["TWIST_WITH_COV_STAMPED_VEL"] << "\n"
-        << "Twist     : " << twist_with_cov_stamped_topic_speed << " -> GadSpeed " << stream_ids["TWIST_WITH_COV_STAMPED_SPEED"] << "\n";
-
-    RCLCPP_INFO(this->get_logger(), "%s", oss.str().c_str()  );
-
     this->timestamp_mode = TIMESTAMP_MODE[this->timestamp];
     RCLCPP_INFO(this->get_logger(), "GAD timestamp mode: %s  (%d)", 
       this->timestamp.c_str(), 
@@ -149,35 +137,60 @@ class GadNode : public rclcpp::Node
         break;
     }
 
+    std::ostringstream oss;
+    oss << "\n=================================================="; 
+    oss << "\nMSG       : TOPIC -> GAD TYPE [STREAM ID]"; 
+    oss << "\n--------------------------------------------------\n"; 
 
-    subNavSatFix_ = this->create_subscription<sensor_msgs::msg::NavSatFix>(
-        nav_sat_fix_topic, 
-        10, 
-        std::bind(&GadNode::nav_sat_fix_callback, this, std::placeholders::_1)
-    );
-    subOdometry_ = this->create_subscription<nav_msgs::msg::Odometry>(
-        odom_topic, 
-        10, 
-        std::bind(&GadNode::odometry_callback, this, std::placeholders::_1)
-    );
-    subPoseWithCovarianceStamped_ = 
-      this->create_subscription<geometry_msgs::msg::PoseWithCovarianceStamped>(
-        pose_with_cov_stamped_topic, 
-        10, 
-        std::bind(&GadNode::pose_with_cov_stamped_callback, this, std::placeholders::_1)
-    );
-    subTwistWithCovarianceStampedVel_ = 
-      this->create_subscription<geometry_msgs::msg::TwistWithCovarianceStamped>(
-        twist_with_cov_stamped_topic_vel, 
-        10, 
-        std::bind(&GadNode::twist_with_cov_stamped_vel_callback, this, std::placeholders::_1)
-    );
-    subTwistWithCovarianceStampedSpeed_ = 
-      this->create_subscription<geometry_msgs::msg::TwistWithCovarianceStamped>(
-        twist_with_cov_stamped_topic_speed, 
-        10, 
-        std::bind(&GadNode::twist_with_cov_stamped_speed_callback, this, std::placeholders::_1)
-    );
+    if (nav_sat_fix_topic != OFF_TOPIC) {
+      subNavSatFix_ = this->create_subscription<sensor_msgs::msg::NavSatFix>(
+          nav_sat_fix_topic, 
+          10, 
+          std::bind(&GadNode::nav_sat_fix_callback, this, std::placeholders::_1)
+      );
+      oss << "NavSatFix : " << nav_sat_fix_topic << " -> GadPosition " << stream_ids["NAV_SAT_FIX_POS"] << "\n";
+    }
+    if (odom_topic != OFF_TOPIC) {
+      subOdometry_ = this->create_subscription<nav_msgs::msg::Odometry>(
+          odom_topic, 
+          10, 
+          std::bind(&GadNode::odometry_callback, this, std::placeholders::_1)
+      );
+      oss << "Odometry  : " << odom_topic << " -> GadPosition " << stream_ids["ODOM_POS"] << "\n"
+          << "Odometry  : " << odom_topic << " -> GadVelocity " << stream_ids["ODOM_VEL"] << "\n"
+          << "Odometry  : " << odom_topic << " -> GadAttitude " << stream_ids["ODOM_ATT"] << "\n";
+    }
+    if (pose_with_cov_stamped_topic != OFF_TOPIC) {
+      subPoseWithCovarianceStamped_ = 
+        this->create_subscription<geometry_msgs::msg::PoseWithCovarianceStamped>(
+          pose_with_cov_stamped_topic, 
+          10, 
+          std::bind(&GadNode::pose_with_cov_stamped_callback, this, std::placeholders::_1)
+      );
+      oss << "Pose      : " << pose_with_cov_stamped_topic << " -> GadPosition " << stream_ids["POSE_WITH_COV_STAMPED_POS"] << "\n"
+          << "Pose      : " << pose_with_cov_stamped_topic << " -> GadAttitude " << stream_ids["POSE_WITH_COV_STAMPED_ATT"] << "\n";
+    }
+    if (twist_with_cov_stamped_topic_vel != OFF_TOPIC) {
+      subTwistWithCovarianceStampedVel_ = 
+        this->create_subscription<geometry_msgs::msg::TwistWithCovarianceStamped>(
+          twist_with_cov_stamped_topic_vel, 
+          10, 
+          std::bind(&GadNode::twist_with_cov_stamped_vel_callback, this, std::placeholders::_1)
+      );
+      oss << "Twist     : " << twist_with_cov_stamped_topic_vel << " -> GadVelocity " << stream_ids["TWIST_WITH_COV_STAMPED_VEL"] << "\n";
+    }
+    if (twist_with_cov_stamped_topic_speed != OFF_TOPIC) {
+      subTwistWithCovarianceStampedSpeed_ = 
+        this->create_subscription<geometry_msgs::msg::TwistWithCovarianceStamped>(
+          twist_with_cov_stamped_topic_speed, 
+          10, 
+          std::bind(&GadNode::twist_with_cov_stamped_speed_callback, this, std::placeholders::_1)
+      );
+      oss << "Twist     : " << twist_with_cov_stamped_topic_speed << " -> GadSpeed " << stream_ids["TWIST_WITH_COV_STAMPED_SPEED"] << "\n";
+    }
+    oss << "=================================================="; 
+    RCLCPP_INFO(this->get_logger(), "%s", oss.str().c_str()  );
+
   }
 
 };
