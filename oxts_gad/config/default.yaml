@@ -12,7 +12,7 @@ oxts_gad:
     ## To turn off a topic subscription, configure topic: /off  
 
     # sensor_msgs/NavSatFix topic
-    nav_sat_fix_topic: /navsatfix #nav_sat_fix
+    nav_sat_fix_topic: /navsatfix 
     nav_sat_fix_pos_stream_id: 130
     # nav_msgs/Odometry topic
     odom_topic: /odom
