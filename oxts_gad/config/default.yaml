@@ -15,19 +15,19 @@ oxts_gad:
     nav_sat_fix_topic: /navsatfix 
     nav_sat_fix_pos_stream_id: 130
     # nav_msgs/Odometry topic
-    odom_topic: /odom
+    odom_topic: /off
     odom_pos_stream_id: 140
     odom_vel_stream_id: 141
     odom_att_stream_id: 142
     # geometry_msgs/msg/PoseWithCovarianceStamped
-    pose_with_cov_stamped_topic: /pose
+    pose_with_cov_stamped_topic: /off
     pose_with_cov_stamped_pos_stream_id: 150
     pose_with_cov_stamped_att_stream_id: 151
     # geometry_msgs/msg/TwistWithCovarianceStamped
-    twist_with_cov_stamped_topic_vel: /twist
+    twist_with_cov_stamped_topic_vel: /off
     twist_with_cov_stamped_vel_stream_id: 152
     # geometry_msgs/msg/TwistWithCovarianceStamped
-    twist_with_cov_stamped_topic_speed: /twist
+    twist_with_cov_stamped_topic_speed: /off
     twist_with_cov_stamped_speed_stream_id: 153
 
     # Timestamp mode {void, gps}
