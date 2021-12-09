@@ -136,20 +136,36 @@ feature codes, contact support@oxts.com.
 
 Topic names not specified here since they are configurable by the user.
 
-*  [NavSatFix](http://docs.ros.org/en/api/sensor_msgs/html/msg/NavSatFix.html)
-    This topic is taken and converted to GadPosition, in the Geodetic 
-    coordinate frame.
-*  [Odometry](https://github.com/ros2/common_interfaces/blob/foxy/nav_msgs/msg/Odometry.msg)
-    This topic is converted into three separate Generic Aiding Data (GAD) 
-    packets: Position, Velocity, Attitude. The angular rates also in the 
-    Odometry message are not used since they are not supported by the Generic Aiding interface.
-*  [PoseWithCovarianceStamped](http://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/PoseWithCovarianceStamped.html)
-    This topic is converted into GAD Position.
-*  [TwistWithCovarianceStamped](http://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/TwistWithCovarianceStamped.html)
-    This topic is converted into GAD Velocity in an ENU local frame.
-*  [TwistWithCovarianceStamped](http://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/TwistWithCovarianceStamped.html)
-    This topic is converted into 1D GAD Speed. Can be used to create zero 
-    velocity updates on the INS. 
+#### [NavSatFix](http://docs.ros.org/en/api/sensor_msgs/html/msg/NavSatFix.html)
+
+This topic is taken and converted to GadPosition, in the Geodetic 
+coordinate frame.
+
+...
+
+#### [Odometry](https://github.com/ros2/common_interfaces/blob/foxy/nav_msgs/msg/Odometry.msg)
+This topic is converted into three separate Generic Aiding Data (GAD) 
+packets: Position, Velocity, Attitude. The angular rates also in the 
+Odometry message are not used since they are not supported by the Generic Aiding interface.
+
+... _configuration TBC_
+
+#### [PoseWithCovarianceStamped](http://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/PoseWithCovarianceStamped.html)
+This topic is converted into GAD Position.
+
+... _configuration TBC_
+
+#### [TwistWithCovarianceStamped](http://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/TwistWithCovarianceStamped.html)
+This topic is converted into GAD Velocity in an ENU local frame.
+
+... _configuration TBC_
+
+#### [TwistWithCovarianceStamped](http://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/TwistWithCovarianceStamped.html)
+This topic is converted into 1D GAD Speed. Can be used to create zero 
+velocity updates on the INS. 
+
+... _configuration TBC_
+
 
 
 ### Configuring the INS
