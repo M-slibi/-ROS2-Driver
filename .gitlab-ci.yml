@@ -51,6 +51,7 @@ compile:
    - mkdir -p src/oxts
    - mv oxts*/ tests/ src/oxts   
    - ls
+   - touch src/oxts/tests/COLCON_IGNORE
    - colcon build
   artifacts:
     paths:
