@@ -69,10 +69,10 @@ temp:
     - mkdir -p ros_ws/src
     - cd ros_ws/src
     - git clone https://github.com/OxfordTechnicalSolutions/oxts_ros2_driver
-    - cd oxts_ros2_driver
+    - cd oxts_ros2_driver#/oxts
     - rosdep update
     - rosdep install --from-path .
-    - cd ../..
+    - cd ..#/..
     - colcon build
     - . install/setup.sh
 
