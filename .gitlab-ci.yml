@@ -45,16 +45,16 @@ pages:
     - if: '$CI_COMMIT_BRANCH == "master"'
 
 # check that package can be compiled
-compile:
-  stage: Build
-  script:
-   - mkdir -p src/oxts
-   - mv oxts*/ tests/ src/oxts
-   - touch src/oxts/tests/COLCON_IGNORE
-   - colcon build
-  artifacts:
-      paths:
-        - tests
+# compile:
+#   stage: Build
+#   script:
+#    - mkdir -p src/oxts
+#    - mv oxts*/ tests/ src/oxts
+#    - touch src/oxts/tests/COLCON_IGNORE
+#    - colcon build
+#   artifacts:
+#     paths:
+#     - build
 
 # Build
 #build:
@@ -62,13 +62,24 @@ compile:
 #  script:
 #    - echo "Building"
 #    - make
+temp:
+  stage: Build
+  script:
+    - . /opt/ros/foxy/setup.bash # "." and "source" are interchangeable (unix)
+    - mkdir -p ros_ws/src
+    - cd ros_ws/src
+    - git clone https://github.com/OxfordTechnicalSolutions/oxts_ros2_driver
+    - cd oxts
+    - rosdep update
+    - rosdep install --from-path .
+    - cd ../..
+    - colcon build
+    - . install/setup.sh
 
 test:
   stage: Test
   script:
-    - echo "Testing"
-    - cd /tests
-    - ./tests.cpp | tee output/results.txt
+    - ./install/tests/lib/tests/tests
     #- cd tests
     #- ./tests.cpp
     #- test -f "build/info.txt"
