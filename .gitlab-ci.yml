@@ -15,9 +15,9 @@ cache:
     - venv/
 
 stages:
- - Build
- - Deploy
- - Test
+  - Deploy
+  - Build
+  - Test
 
 before_script:
   # install package dependencies
@@ -54,7 +54,7 @@ compile:
    - colcon build
   artifacts:
       paths:
-        - oxts
+        - tests
 
 # Build
 #build:
@@ -67,7 +67,8 @@ test:
   stage: Test
   script:
     - echo "Testing"
-    - ./tests
+    - cd /tests
+    - ./tests.cpp | tee output/results.txt
     #- cd tests
     #- ./tests.cpp
     #- test -f "build/info.txt"
