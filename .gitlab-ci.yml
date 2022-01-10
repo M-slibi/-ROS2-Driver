@@ -52,7 +52,10 @@ compile:
    - mv oxts*/ tests/ src/oxts   
    - ls
    - colcon build
-   - ls
+  artifacts:
+    paths:
+      - build/
+      - install/
 #- touch src/oxts/tests/COLCON_IGNORE
 # Build
 #build:
@@ -77,6 +80,7 @@ compile:
 test:
   stage: Test
   script:
+    -ls
     - echo "Running unit tests"
     - ./build/tests/tests
 
