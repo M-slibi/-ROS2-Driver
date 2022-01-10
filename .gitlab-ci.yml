@@ -15,8 +15,8 @@ cache:
     - venv/
 
 stages:
-  - Deploy
   - Build
+  - Deploy
   - Test
 
 before_script:
@@ -49,10 +49,11 @@ compile:
   stage: Build
   script:
    - mkdir -p src/oxts
-   - mv oxts*/ tests/ src/oxts
-   - touch src/oxts/tests/COLCON_IGNORE
+   - mv oxts*/ tests/ src/oxts   
+   - ls
    - colcon build
-
+   - ls
+#- touch src/oxts/tests/COLCON_IGNORE
 # Build
 #build:
 #  stage: Build
@@ -76,8 +77,9 @@ compile:
 test:
   stage: Test
   script:
-    - cd tests
-    - tests.cpp
+    - echo "Running unit tests"
+    - ./build/tests/tests
+
     #./install/tests/lib/tests/tests
     #- cd tests
     #- ./tests.cpp
