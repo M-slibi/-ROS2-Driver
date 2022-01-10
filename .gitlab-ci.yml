@@ -17,6 +17,7 @@ cache:
 stages:
  - Build
  - Deploy
+ - Test
 
 before_script:
   # install package dependencies
@@ -51,3 +52,17 @@ compile:
    - mv oxts*/ tests/ src/oxts
    - touch src/oxts/tests/COLCON_IGNORE
    - colcon build
+
+# Build
+build:
+  stage: Build
+  script:
+    - echo "Building"
+    - mkdir build
+    - touch build/info.txt
+
+test:
+  stage: Test
+  script:
+    - echo "Testing"
+    - test -f "build/info.txt"
