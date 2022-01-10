@@ -69,7 +69,7 @@ temp:
     - mkdir -p ros_ws/src
     - cd ros_ws/src
     - git clone https://github.com/OxfordTechnicalSolutions/oxts_ros2_driver
-    - cd oxts
+    - cd oxts_ros2_driver
     - rosdep update
     - rosdep install --from-path .
     - cd ../..
