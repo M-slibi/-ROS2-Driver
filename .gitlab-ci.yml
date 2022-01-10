@@ -58,11 +58,12 @@ build:
   stage: Build
   script:
     - echo "Building"
-    - mkdir build
-    - touch build/info.txt
+    - make
 
 test:
   stage: Test
   script:
     - echo "Testing"
+    - cd tests
+    - ./tests.cpp
     - test -f "build/info.txt"
