@@ -52,18 +52,22 @@ compile:
    - mv oxts*/ tests/ src/oxts
    - touch src/oxts/tests/COLCON_IGNORE
    - colcon build
+  artifacts:
+      paths:
+        - oxts
 
 # Build
-build:
-  stage: Build
-  script:
-    - echo "Building"
-    - make
+#build:
+#  stage: Build
+#  script:
+#    - echo "Building"
+#    - make
 
 test:
   stage: Test
   script:
     - echo "Testing"
-    - cd tests
-    - ./tests.cpp
-    - test -f "build/info.txt"
+    - ./tests
+    #- cd tests
+    #- ./tests.cpp
+    #- test -f "build/info.txt"
