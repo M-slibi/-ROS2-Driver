@@ -73,6 +73,7 @@ test:
   stage: Test
   script:
     - echo "Running unit tests"    
+    - source /opt/ros/foxy/setup.bash
     - ./build/tests/tests
 
     #- /opt/ros/foxy/setup.bash
