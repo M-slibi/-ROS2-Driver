@@ -23,7 +23,6 @@ stages:
 before_script:
   # install package dependencies
   - apt update && apt install libboost-all-dev -y
-  - apt-get install cmake
   - source /opt/ros/foxy/setup.bash
 
 # deploy pages only on master branch
