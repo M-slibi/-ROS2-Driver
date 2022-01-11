@@ -73,6 +73,7 @@ test:
   stage: Test
   script:
     - echo "Running unit tests"
+    - source install/local_setup.sh
     - ./build/tests/tests
 
     #./install/tests/lib/tests/tests
