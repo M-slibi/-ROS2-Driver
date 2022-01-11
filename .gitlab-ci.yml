@@ -1,4 +1,4 @@
-image: ros2:foxy-ros-base-focal
+image: orocos/ros2:foxy-ros-base-focal
 #image: ros:foxy-ros1-bridge-focal
 # Change pip's cache directory to be inside the project directory since we can
 # only cache local items.
