@@ -22,6 +22,7 @@ stages:
 before_script:
   # install package dependencies
   - apt update && apt install libboost-all-dev -y
+  - apt-get install cmake
   - source /opt/ros/foxy/setup.bash
 
 # deploy pages only on master branch
@@ -48,15 +49,19 @@ pages:
 compile:
   stage: Build
   script:
+   - echo "Building Stage"
    - mkdir -p src/oxts
-   - mv oxts*/ tests/ src/oxts   
+   - mv oxts*/ src/oxts   
+   - mv test/ src/oxts/tests 
+   - pwd
    - ls
-   - touch src/oxts/tests/COLCON_IGNORE
+   - ls src/oxts
    - colcon build
   artifacts:
     paths:
       - build/
       - install/
+# mv oxts*/ tests/ src/oxts 
 #- touch src/oxts/tests/COLCON_IGNORE
 # Build
 #build:
@@ -82,7 +87,7 @@ test:
   stage: Test
   script:
     - echo "Running unit tests"
-    - ./src/oxts/tests/tests
+    - ./build/tests/tests
 
     #./install/tests/lib/tests/tests
     #- cd tests
