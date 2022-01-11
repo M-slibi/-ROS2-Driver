@@ -1,4 +1,4 @@
-image: ros:foxy-ros-core-focal
+image: ros:foxy-ros-base-focal
 #orocos/ros2
 #image: ros:foxy-ros1-bridge-focal
 # Change pip's cache directory to be inside the project directory since we can
@@ -25,6 +25,7 @@ stages:
 before_script:
   # install package dependencies
   - apt update && apt install libboost-all-dev -y
+  - apt-get install cmake
   - source /opt/ros/foxy/setup.bash
 
 # deploy pages only on master branch
