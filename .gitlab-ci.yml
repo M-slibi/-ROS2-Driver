@@ -1,4 +1,5 @@
-image: ros:foxy-ros1-bridge-focal
+image: ros:foxy-ros-core-focal
+#image: ros:foxy-ros1-bridge-focal
 # Change pip's cache directory to be inside the project directory since we can
 # only cache local items.
 variables:
@@ -52,7 +53,7 @@ compile:
     - "echo Building ROS2 Driver"
     - mkdir -p src/oxts
     - mv oxts*/ src/oxts
-    - mv tests/ src/oxts/test
+    - mv tests/ src/oxts
     - pwd
     - ls
     - ls src/oxts
