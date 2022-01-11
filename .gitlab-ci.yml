@@ -15,9 +15,10 @@ cache:
     - venv/
 
 stages:
+  - Test
   - Build
   - Deploy
-  - Test
+
 
 before_script:
   # install package dependencies
@@ -66,10 +67,10 @@ test:
   stage: Test
   script:
     - echo "Building test"
-    - mv tests/ src/oxts/tests
+    - mv tests/ src/oxts/
     - colcon build
     - echo "Running unit tests"
-    - ./build/tests/tests
+    - ./install/tests/lib/tests/tests
 
     #./install/tests/lib/tests/tests
     #- cd tests
