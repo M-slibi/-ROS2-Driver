@@ -51,8 +51,10 @@ compile:
   script:
    - echo "Building Stage"
    - mkdir -p src/oxts
-   - mv oxts*/ src/oxts   
-   - mv test/ src/oxts/tests 
+   - mv oxts*/ src/oxts 
+   - ls  
+   - ls src/oxts
+   - mv tests/ src/oxts/test
    - pwd
    - ls
    - ls src/oxts
