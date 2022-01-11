@@ -53,7 +53,7 @@ target_include_directories(tests PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         PRIVATE ${Boost_INCLUDE_DIRS}
         $<INSTALL_INTERFACE:include>)
-target_link_libraries (tests ${Boost_LIBRARIES})
 
-install(TARGETS tests
-        DESTINATION lib/${PROJECT_NAME})
+target_link_libraries (tests 
+        ${Boost_LIBRARIES}
+        ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
