@@ -15,9 +15,9 @@ cache:
     - venv/
 
 stages:
-  - Test
   - Build
   - Deploy
+  - Test
 
 
 before_script:
