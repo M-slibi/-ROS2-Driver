@@ -72,10 +72,10 @@ compile:
 test:
   stage: Test
   script:
-    - echo "Running unit tests"
-    - /opt/ros/foxy/setup.bash
+    - echo "Running unit tests"    
     - ./build/tests/tests
 
+    #- /opt/ros/foxy/setup.bash
     #./install/tests/lib/tests/tests
     #- cd tests
     #- ./tests.cpp
