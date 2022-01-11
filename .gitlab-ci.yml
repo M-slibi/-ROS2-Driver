@@ -73,7 +73,7 @@ test:
   stage: Test
   script:
     - echo "Running unit tests"
-    - source install/local_setup.sh
+    - /opt/ros/foxy/setup.bash
     - ./build/tests/tests
 
     #./install/tests/lib/tests/tests
