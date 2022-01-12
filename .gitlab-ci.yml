@@ -1,4 +1,4 @@
-image: osrf/ros2:foxy
+image: osrf/ros:foxy-desktop
 #osrf/ros:foxy-desktop
 #ros:foxy-ros-base-focal
 #orocos/ros2
