@@ -1,4 +1,4 @@
-image: osrf/ros:foxy-desktop
+image: ros:foxy-desktop
 #ros:foxy-ros-base-focal
 #orocos/ros2
 #image: ros:foxy-ros1-bridge-focal
@@ -54,18 +54,18 @@ compile:
   stage: Build
   script:
     # Get testing tools:
-    - echo "getting tools"
-    - git clone "https://github.com/osrf/osrf_testing_tools_cpp.git"
-    - cd osrf_testing_tools_cpp/osrf_testing_tools_cpp && mkdir _build && cd _build 
-    - cmake .. && cmake --build . --target install
-    - cd ../../..
-    # Get rosidl_typesupport_fastrtps_cpp package
-    - echo "getting rosid1_typesupport_fastrtps_cpp package"
-    - git clone "https://github.com/ros2/rosidl_typesupport_fastrtps.git"
-    - cd rosidl_typesupport_fastrtps/rosidl_typesupport_fastrtps_cpp && mkdir _build && cd _build 
-    - cmake .. && cmake --build . --target install
+    # - echo "getting tools"
+    # - git clone "https://github.com/osrf/osrf_testing_tools_cpp.git"
+    # - cd osrf_testing_tools_cpp/osrf_testing_tools_cpp && mkdir _build && cd _build 
+    # - cmake .. && cmake --build . --target install
+    # - cd ../../..
+    # # Get rosidl_typesupport_fastrtps_cpp package
+    # - echo "getting rosid1_typesupport_fastrtps_cpp package"
+    # - git clone "https://github.com/ros2/rosidl_typesupport_fastrtps.git"
+    # - cd rosidl_typesupport_fastrtps/rosidl_typesupport_fastrtps_cpp && mkdir _build && cd _build 
+    # - cmake .. && cmake --build . --target install
+    #- cd ../../..
     - "echo Building ROS2 Driver"
-    - cd ../../..
     - ls
     - mkdir -p src/oxts
     - mv oxts*/ src/oxts
