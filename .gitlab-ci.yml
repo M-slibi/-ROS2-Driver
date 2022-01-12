@@ -71,7 +71,9 @@ compile:
     - ls
     - ls src/oxts
     - colcon build
+    - ls
     - . install/setup.sh
+    - ls
   artifacts:
     paths:
       - build/
@@ -98,7 +100,6 @@ test:
     - ls install 
     - source /opt/ros/foxy/setup.bash
     - source install/setup.sh
-    - colcon build
     - ./install/tests/lib/tests/tests
     #./install/tests/tests
 
