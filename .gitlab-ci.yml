@@ -63,7 +63,10 @@ compile:
     - pwd
     - ls
     - ls src/oxts
+    - source install/setup.bash
     - colcon build
+    - ls install/share
+    - ls build/tests
   artifacts:
     paths:
       - build/
@@ -74,6 +77,6 @@ test:
   stage: Test
   script:
     - echo "Running unit tests"
-    - ls build/tests
+    - ls install/tests
     - ./build/tests/tests
 
