@@ -64,7 +64,6 @@ compile:
     - ls
     - ls src/oxts
     - colcon build
-    - ls
   artifacts:
     paths:
       - build/
@@ -75,6 +74,6 @@ test:
   stage: Test
   script:
     - echo "Running unit tests"
-    - ls
+    - ls build/tests
     - ./build/tests/tests
 
