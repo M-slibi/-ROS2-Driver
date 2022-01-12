@@ -64,7 +64,7 @@ compile:
     - ls
     - ls src/oxts
     - colcon build
-    - ls build/tests
+    - ls build/tests/tests
   artifacts:
     paths:
       - build/
