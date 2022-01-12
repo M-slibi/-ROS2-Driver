@@ -96,7 +96,7 @@ test:
   script:
     - echo "Running unit tests"    
     - source /opt/ros/galactic/setup.bash
-    - ./build/tests/tests
+    - ./install/tests/tests
 
     #- /opt/ros/foxy/setup.bash
     #./install/tests/lib/tests/tests
