@@ -72,7 +72,6 @@ compile:
     - ls src/oxts
     - colcon build
     - ls
-    - . install/setup.sh
     - ls install
   artifacts:
     paths:
