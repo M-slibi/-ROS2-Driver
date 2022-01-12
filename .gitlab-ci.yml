@@ -73,7 +73,7 @@ compile:
     - colcon build
     - ls
     - . install/setup.sh
-    - ls
+    - ls install
   artifacts:
     paths:
       - build/
@@ -96,12 +96,11 @@ test:
   stage: Test
   script:
     - echo "Running unit tests" 
-    - ls install
-    - ls install 
-    - source /opt/ros/foxy/setup.bash
-    - source install/setup.sh
+    - ls
+    #- source /opt/ros/foxy/setup.bash
+    #- source install/setup.sh
     - ./install/tests/lib/tests/tests
-    #./install/tests/tests
+    #./build/tests/tests
 
     #- /opt/ros/foxy/setup.bash
     #./install/tests/lib/tests/tests
