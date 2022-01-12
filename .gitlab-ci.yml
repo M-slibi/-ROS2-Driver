@@ -72,7 +72,6 @@ compile:
     - ls src/oxts
     - colcon build
     - . install/setup.sh
-    - source /opt/ros/galactic/setup.bash
   artifacts:
     paths:
       - build/
@@ -94,9 +93,14 @@ compile:
 test:
   stage: Test
   script:
-    - echo "Running unit tests"    
-    - source /opt/ros/galactic/setup.bash
-    - ./install/tests/tests
+    - echo "Running unit tests" 
+    - ls
+    - cd src/oxts   
+    - . /opt/ros/foxy/setup.bash
+    - . install/setup.sh
+    - colcon build
+    - ./install/tests/lib/tests/tests
+    #./install/tests/tests
 
     #- /opt/ros/foxy/setup.bash
     #./install/tests/lib/tests/tests
