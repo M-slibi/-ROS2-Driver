@@ -55,18 +55,12 @@ pages:
 compile:
   stage: Build
   script:
-    # Get testing tools:
-    # - echo "getting tools"
-    # - git clone "https://github.com/osrf/osrf_testing_tools_cpp.git"
-    # - cd osrf_testing_tools_cpp/osrf_testing_tools_cpp && mkdir _build && cd _build 
-    # - cmake .. && cmake --build . --target install
-    # - cd ../../..
-    # # Get rosidl_typesupport_fastrtps_cpp package
-    # - echo "getting rosid1_typesupport_fastrtps_cpp package"
-    # - git clone "https://github.com/ros2/rosidl_typesupport_fastrtps.git"
-    # - cd rosidl_typesupport_fastrtps/rosidl_typesupport_fastrtps_cpp && mkdir _build && cd _build 
-    # - cmake .. && cmake --build . --target install
-    #- cd ../../..
+    # Get RMV fastrtps
+    - echo "getting fastrtps"
+    - git clone "https://github.com/ros2/rmw_fastrtps.git"
+    - cd rmw_fastrtps/rmw_fastrtps_cpp && mkdir _build && cd _build 
+    - cmake .. && cmake --build . --target install
+    - cd ../../..
     - "echo Building ROS2 Driver"
     - ls
     - mkdir -p src/oxts
@@ -83,7 +77,18 @@ compile:
       - install/
 # mv oxts*/ tests/ src/oxts 
 #- touch src/oxts/tests/COLCON_IGNORE
-
+    # Get testing tools:
+    # - echo "getting tools"
+    # - git clone "https://github.com/osrf/osrf_testing_tools_cpp.git"
+    # - cd osrf_testing_tools_cpp/osrf_testing_tools_cpp && mkdir _build && cd _build 
+    # - cmake .. && cmake --build . --target install
+    # - cd ../../..
+    # # Get rosidl_typesupport_fastrtps_cpp package
+    # - echo "getting rosid1_typesupport_fastrtps_cpp package"
+    # - git clone "https://github.com/ros2/rosidl_typesupport_fastrtps.git"
+    # - cd rosidl_typesupport_fastrtps/rosidl_typesupport_fastrtps_cpp && mkdir _build && cd _build 
+    # - cmake .. && cmake --build . --target install
+    #- cd ../../..
 test:
   stage: Test
   script:
