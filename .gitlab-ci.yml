@@ -94,10 +94,10 @@ test:
   stage: Test
   script:
     - echo "Running unit tests" 
-    - ls
-    - cd src/oxts   
-    - . /opt/ros/foxy/setup.bash
-    - . install/setup.sh
+    - ls install
+    - ls install 
+    - source /opt/ros/foxy/setup.bash
+    - source install/setup.sh
     - colcon build
     - ./install/tests/lib/tests/tests
     #./install/tests/tests
