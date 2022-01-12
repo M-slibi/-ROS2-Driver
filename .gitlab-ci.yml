@@ -55,7 +55,9 @@ compile:
   script:
     # Get rosidl_typesupport_fastrtps_cpp package
     - echo "getting rosid1_typesupport_fastrtps_cpp package"
-    - git clone "https://github.com/ros2/rosidl_typesupport_fastrtps/tree/master/rosidl_typesupport_fastrtps_cpp"
+    - git clone "https://github.com/ros2/rosidl_typesupport_fastrtps.git"
+    - cd rosidl_typesupport_fastrtps/rosidl_typesupport_fastrtps_cpp && mkdir _build && cd _build 
+    - cmake .. && cmake --build . --target install
     - "echo Building ROS2 Driver"
     - mkdir -p src/oxts
     - mv oxts*/ src/oxts
@@ -84,3 +86,5 @@ test:
     #- cd tests
     #- ./tests.cpp
     #- test -f "build/info.txt"
+    # cd rosidl_typesupport_fastrtps_cpp && mkdir _build && cd _build 
+    # - cmake .. && cmake --build . --target install
