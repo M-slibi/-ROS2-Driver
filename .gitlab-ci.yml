@@ -73,6 +73,9 @@ compile:
     - colcon build
     - ls install/tests/share/tests
     - ls build/tests
+    - source install/setup.sh
+    - ls
+    - ls install/tests
   artifacts:
     paths:
       - build/
