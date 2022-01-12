@@ -59,7 +59,7 @@ compile:
     - cd rosidl_typesupport_fastrtps/rosidl_typesupport_fastrtps_cpp && mkdir _build && cd _build 
     - cmake .. && cmake --build . --target install
     - "echo Building ROS2 Driver"
-    - cd ../..
+    - cd ../../..
     - mkdir -p src/oxts
     - mv oxts*/ src/oxts
     - mv tests/ src/oxts/test
