@@ -72,7 +72,8 @@ compile:
     - ls src/oxts
     - colcon build
     - ls
-    - ls install/tests
+    - ls install/share
+    - ls build/tests
   artifacts:
     paths:
       - build/
