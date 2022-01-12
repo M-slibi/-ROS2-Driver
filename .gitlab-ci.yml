@@ -60,6 +60,7 @@ compile:
     - cmake .. && cmake --build . --target install
     - "echo Building ROS2 Driver"
     - cd ../../..
+    - ls
     - mkdir -p src/oxts
     - mv oxts*/ src/oxts
     - mv tests/ src/oxts/test
