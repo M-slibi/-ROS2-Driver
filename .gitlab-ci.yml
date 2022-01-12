@@ -1,4 +1,4 @@
-image: osrf/ros:foxy-desktop
+image: osrf/ros:galactic-desktop
   #osrf/ros:foxy-ros1-bridge
 #osrf/ros:foxy-desktop
 #osrf/ros:foxy-desktop
@@ -57,11 +57,11 @@ compile:
   stage: Build
   script:
     # Get RMV fastrtps
-    - echo "getting fastrtps"
-    - git clone "https://github.com/ros2/rosidl_typesupport_fastrtps.git"
-    - cd rosidl_typesupport_fastrtps/fastrtps_cmake_module && mkdir _build && cd _build 
-    - cmake .. && cmake --build . --target install
-    - cd ../../..
+    # - echo "getting fastrtps"
+    # - git clone "https://github.com/ros2/rosidl_typesupport_fastrtps.git"
+    # - cd rosidl_typesupport_fastrtps/fastrtps_cmake_module && mkdir _build && cd _build 
+    # - cmake .. && cmake --build . --target install
+    # - cd ../../..
     - "echo Building ROS2 Driver"
     - ls
     - mkdir -p src/oxts
