@@ -1,4 +1,4 @@
-image: osrf/ros:galactic-desktop
+image: osrf/ros:foxy-desktop
   #osrf/ros:foxy-ros1-bridge
 #osrf/ros:foxy-desktop
 #osrf/ros:foxy-desktop
@@ -30,7 +30,7 @@ before_script:
   # install package dependencies
   - apt update && apt install libboost-all-dev -y
   - apt-get install cmake
-  - source /opt/ros/galactic/setup.bash
+  - source /opt/ros/foxy/setup.bash
 
 # deploy pages only on master branch
 pages:
