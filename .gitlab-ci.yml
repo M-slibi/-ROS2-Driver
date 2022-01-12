@@ -1,4 +1,5 @@
-image: osrf/ros:foxy-ros1-bridge
+image: osrf/ros:foxy-desktop
+  #osrf/ros:foxy-ros1-bridge
 #osrf/ros:foxy-desktop
 #osrf/ros:foxy-desktop
 #ros:foxy-ros-base-focal
@@ -57,8 +58,8 @@ compile:
   script:
     # Get RMV fastrtps
     - echo "getting fastrtps"
-    - git clone "https://github.com/ros2/rmw_fastrtps.git"
-    - cd rmw_fastrtps/rmw_fastrtps_cpp && mkdir _build && cd _build 
+    - git clone "https://github.com/ros2/rosidl_typesupport_fastrtps.git"
+    - cd rosidl_typesupport_fastrtps/fastrtps_cmake_module && mkdir _build && cd _build 
     - cmake .. && cmake --build . --target install
     - cd ../../..
     - "echo Building ROS2 Driver"
@@ -71,6 +72,7 @@ compile:
     - ls src/oxts
     - colcon build
     - . install/setup.sh
+    - source /opt/ros/foxy/setup.bash
   artifacts:
     paths:
       - build/
