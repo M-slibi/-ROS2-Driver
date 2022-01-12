@@ -101,8 +101,8 @@ test:
     - ls
     #- source /opt/ros/foxy/setup.bash
     #- source install/setup.sh
-    - ./install/tests/share/tests
-    #./build/tests/tests
+    #- ./install/tests/share/tests
+    - ./build/tests/tests
 
     #- /opt/ros/foxy/setup.bash
     #./install/tests/lib/tests/tests
