@@ -103,8 +103,7 @@ test:
     - ls install/tests
     - source /opt/ros/foxy/setup.bash
     - source install/setup.sh
-    - ls
-    - ls src/oxts/test
+    - ls tests
     #- ./install/tests/share/tests
     - ./build/tests/tests
 
