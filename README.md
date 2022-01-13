@@ -1,6 +1,6 @@
 # ROS2 Driver
 
-[![Pipeline_Status](https://gitlab.com/oxts/navigation/ros/oxts/badges/master/pipeline.svg)](https://gitlab.com/oxts/navigation/ros/oxts/-/commits/master)
+[![Pipeline_Status](https://gitlab.com/oxts/navigation/ros/oxts/badges/Galactic/pipeline.svg)](https://gitlab.com/oxts/navigation/ros/oxts/-/commits/Galactic)
 
 A ROS2 driver which allows an OxTS INS to interact with a wider ROS network. Where ROS is mentioned in this document, this is in reference to ROS2. References to ROS1 will be explicit.
 
