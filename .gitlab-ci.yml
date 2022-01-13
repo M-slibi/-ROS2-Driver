@@ -18,8 +18,8 @@ cache:
 
 stages:
   - Build
-  - Test
   - Deploy
+  - Test
 
 before_script:
   # install package dependencies
@@ -52,7 +52,6 @@ pages:
 compile:
   stage: Build
   script:
-    - generate public/build_test.svg
     - "echo Building ROS2 Driver"
     - ls
     - mkdir -p src/oxts
@@ -65,13 +64,11 @@ compile:
     paths:
       - build/
       - install/
-      - public/build_test.svg
       
 # run unit tests
 test:
   stage: Test
   script:
-    - generate public/unit_tests.svg
     - echo "Running unit tests" 
     - ls
     - ls build/tests
@@ -79,7 +76,4 @@ test:
     - source install/setup.sh
     - cd ./build/tests
     - ./tests
-  artifacts:
-    paths:
-      - public/unit_tests.svg
     
