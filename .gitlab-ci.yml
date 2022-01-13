@@ -1,4 +1,4 @@
-image: osrf/ros:foxy-desktop
+image: osrf/ros:galactic-desktop
 #osrf/ros:foxy-ros1-bridge
 
 # Change pip's cache directory to be inside the project directory since we can
@@ -24,9 +24,9 @@ stages:
 before_script:
   # install package dependencies
   - apt update && apt install libboost-all-dev -y
-  - apt-get install ros-foxy-fastrtps
+  - apt-get install ros-galactic-fastrtps
   - apt-get install cmake
-  - source /opt/ros/foxy/setup.bash
+  - source /opt/ros/galactic/setup.bash
 
 # deploy pages only on master branch
 pages:
@@ -46,7 +46,7 @@ pages:
     paths:
     - public
   rules:
-    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_BRANCH == "Galactic"'
 
 # check that package can be compiled
 compile:
@@ -72,7 +72,7 @@ test:
     - echo "Running unit tests" 
     - ls
     - ls build/tests
-    - source /opt/ros/foxy/setup.bash
+    - source /opt/ros/galactic/setup.bash
     - source install/setup.sh
     - cd ./build/tests
     - ./tests
