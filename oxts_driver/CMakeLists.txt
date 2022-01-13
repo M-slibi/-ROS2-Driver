@@ -22,7 +22,6 @@ find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(tf2_kdl REQUIRED)
 find_package(oxts_msgs REQUIRED)
-find_package(tests REQUIRED)
 
 
 add_executable(oxts_driver 
