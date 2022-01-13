@@ -52,7 +52,7 @@ pages:
 compile:
   stage: Build
   script:
-    - public/compile.svg
+    - $ generate public/compile.svg
     - "echo Building ROS2 Driver"
     - ls
     - mkdir -p src/oxts
