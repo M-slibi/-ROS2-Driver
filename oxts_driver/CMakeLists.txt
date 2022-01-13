@@ -22,6 +22,7 @@ find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(tf2_kdl REQUIRED)
 find_package(oxts_msgs REQUIRED)
+find_package(tests REQUIRED)
 
 
 add_executable(oxts_driver 
@@ -38,11 +39,16 @@ ament_target_dependencies(oxts_driver
                           tf2
                           tf2_kdl
                           oxts_msgs)
+
 target_include_directories(oxts_driver PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   PRIVATE ${Boost_INCLUDE_DIRS}
   $<INSTALL_INTERFACE:include>)
 
+target_link_libraries (tests 
+        ${Boost_LIBRARIES}
+        ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+)
 
 install(TARGETS oxts_driver
         DESTINATION lib/${PROJECT_NAME})
