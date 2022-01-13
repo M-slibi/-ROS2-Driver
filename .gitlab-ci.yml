@@ -105,7 +105,9 @@ test:
     - source install/setup.sh
     - ls tests
     #- ./install/tests/share/tests
-    - ./build/tests/tests
+    - cd ./build/tests
+    - ./tests
+    #- ./build/tests/tests
 
     #- /opt/ros/foxy/setup.bash
     #./install/tests/lib/tests/tests
