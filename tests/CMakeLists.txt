@@ -52,6 +52,9 @@ ament_target_dependencies(tests
         tf2_kdl
         oxts_msgs)
 
+
+message(STATUS "include dirs: ${Boost_INCLUDE_DIRS}")
+
 target_include_directories(tests PUBLIC
         ../oxts_driver/include
         ../oxts_ins/include
