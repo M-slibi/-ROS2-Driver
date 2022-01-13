@@ -44,11 +44,6 @@ target_include_directories(oxts_driver PUBLIC
   PRIVATE ${Boost_INCLUDE_DIRS}
   $<INSTALL_INTERFACE:include>)
 
-target_link_libraries (tests 
-        ${Boost_LIBRARIES}
-        ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
-)
-
 install(TARGETS oxts_driver
         DESTINATION lib/${PROJECT_NAME})
 
