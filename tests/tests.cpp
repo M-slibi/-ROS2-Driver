@@ -26,7 +26,7 @@ namespace tests {
 std::unique_ptr<oxts_driver::OxtsDriver> newDriver() {
   rclcpp::NodeOptions options;
   options.append_parameter_override(
-      "ncom", std::filesystem::weakly_canonical(std::filesystem::path{"./test.ncom"});
+      "ncom", std::filesystem::weakly_canonical(std::filesystem::path{"./test.ncom"}));
   options.append_parameter_override("ncom_rate", 250);
   return std::make_unique<oxts_driver::OxtsDriver>(options);
 }
