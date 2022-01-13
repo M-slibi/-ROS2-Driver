@@ -52,7 +52,7 @@ pages:
 compile:
   stage: Build
   script:
-    - <generate public/build_test.svg>
+    - generate public/build_test.svg
     - "echo Building ROS2 Driver"
     - ls
     - mkdir -p src/oxts
@@ -71,7 +71,7 @@ compile:
 test:
   stage: Test
   script:
-    - <generate public/unit_tests.svg>
+    - generate public/unit_tests.svg
     - echo "Running unit tests" 
     - ls
     - ls build/tests
