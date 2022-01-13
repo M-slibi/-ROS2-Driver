@@ -52,6 +52,11 @@ ament_target_dependencies(tests
         tf2_kdl
         oxts_msgs)
 
+add_custom_command(
+        TARGET tests POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+                ${CMAKE_SOURCE_DIR}/test.ncom
+                ${CMAKE_CURRENT_BINARY_DIR}/test.ncom)
 
 message(STATUS "include dirs: ${Boost_INCLUDE_DIRS}")
 
