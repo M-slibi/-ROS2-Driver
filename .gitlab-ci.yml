@@ -70,7 +70,7 @@ compile:
     - mv tests/ src/oxts/test
     - pwd
     - ls
-    - ls src/oxts
+    - ls src/oxts/test
     - colcon build
     - ls install/tests/share/tests
     - ls build/tests
