@@ -29,6 +29,7 @@ stages:
 before_script:
   # install package dependencies
   - apt update && apt install libboost-all-dev -y
+  - apt-get install ros-foxy-fastrtps
   - apt-get install cmake
   - source /opt/ros/foxy/setup.bash
 
@@ -99,8 +100,10 @@ test:
   script:
     - echo "Running unit tests" 
     - ls
-    #- source /opt/ros/foxy/setup.bash
-    #- source install/setup.sh
+    - ls install/tests
+    - source /opt/ros/foxy/setup.bash
+    - source install/setup.sh
+    - ls
     #- ./install/tests/share/tests
     - ./build/tests/tests
 
