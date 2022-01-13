@@ -52,7 +52,7 @@ pages:
 compile:
   stage: Build
   script:
-    - $ generate public/compile.svg
+    - cp -af compile.svg ./Public/
     - "echo Building ROS2 Driver"
     - ls
     - mkdir -p src/oxts
@@ -65,7 +65,7 @@ compile:
     paths:
       - build/
       - install/
-      - public/compile.svg
+      - public
       
 # run unit tests
 test:
