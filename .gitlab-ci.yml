@@ -1,5 +1,3 @@
-[![pipeline status](https://gitlab.com/oxts/navigation/ros/oxts/badges/master/pipeline.svg)](https://gitlab.com/oxts/navigation/ros/oxts/-/commits/master)
-
 image: osrf/ros:foxy-desktop
 #osrf/ros:foxy-ros1-bridge
 
