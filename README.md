@@ -1,8 +1,8 @@
 # ROS2 Driver
 
 [![Pipeline_Status](https://gitlab.com/oxts/navigation/ros/oxts/badges/master/pipeline.svg)](https://gitlab.com/oxts/navigation/ros/oxts/-/commits/master)
-![Build_Status](https://gitlab.com/mslibi_oxts/oxts/builds/artifacts/master/raw/build.svg?job=compile)
-![Test_Status](https://gitlab.com/mslibi_oxts/oxts/builds/artifacts/master/raw/test.svg?job=test)
+![Build_Status](https://gitlab.com/oxts/navigation/ros/oxts/-/jobs/artifacts/master/raw/public/build.svg?job=compile)
+![Test_Status](https://gitlab.com/oxts/navigation/ros/oxts/-/jobs/artifacts/master/raw/public/test.svg?job=test)
 
 A ROS2 driver which allows an OxTS INS to interact with a wider ROS network. Where ROS is mentioned in this document, this is in reference to ROS2. References to ROS1 will be explicit.
 
