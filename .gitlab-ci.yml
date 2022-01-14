@@ -27,13 +27,14 @@ before_script:
   - apt-get install ros-galactic-fastrtps
   - apt-get install cmake
   - source /opt/ros/galactic/setup.bash
-
+  # Install python for pip3 installs
+  - apt install python3-pip doxygen -y
 # deploy pages only on master branch
 pages:
   stage: Deploy
   script:
     # Install python dependencies
-    - apt install python3-pip doxygen -y
+    #- apt install python3-pip doxygen -y
     - pip3 install sphinx sphinx_rtd_theme breathe
     # Create documentation dir and move to build dir
     #- mkdir public
