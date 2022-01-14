@@ -72,7 +72,7 @@ compile:
     paths:
       - build/
       - install/
-      - public/build.svg
+      - public/
       
 # run unit tests
 test:
