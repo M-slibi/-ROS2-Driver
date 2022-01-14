@@ -61,7 +61,7 @@ compile:
     - colcon build
     - source install/setup.sh
     # SVG generation
-    - pip install anybadge
+    - pip3 install anybadge
     - mkdir public
     - anybadge --label=build --value=passing --file=build.svg passing=green failing=red
     - mv build.svg public/build_$CI_COMMIT_REF_NAME.svg
