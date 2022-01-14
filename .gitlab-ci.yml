@@ -17,22 +17,9 @@ cache:
     - venv/
 
 stages:
-  - Initiate
   - Build
   - Test
   - Deploy
-
-Initiate:
-  stage: Initiate
-  script:
-    - mkdir public
-    - anybadge --label=build --value=failing --file=build.svg passing=green failing=red running=orange
-    - mv build.svg public
-    - anybadge --label=test --value=failing --file=test.svg passing=green failing=red running=orange
-    - mv test.svg public
-  artifacts:
-    paths:
-      - public
 
 before_script:
   # install package dependencies
@@ -67,8 +54,6 @@ pages:
 compile:
   stage: Build
   script:
-    - "FAIL"
-    - ls dds
     - "echo Building ROS2 Driver"
     - ls
     - mkdir -p src/oxts
@@ -79,8 +64,12 @@ compile:
     - source install/setup.sh
     #- mkdir public
     # SVG generation
+    - buildExitCode=$?
   after_script:
-    - anybadge --label=build --value=passing --file=build.svg passing=green failing=red running=orange
+    - if [ "$buildExitCode" -ne 0 ]; then
+        anybadge --label=build --value=passing --file=build.svg passing=green failing=red running=orange
+      else
+        anybadge --label=build --value=failing --file=build.svg passing=green failing=red running=orange
     - mv build.svg public
     #build_$CI_COMMIT_REF_NAME.svg
     # assign SVG image
