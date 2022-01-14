@@ -36,7 +36,7 @@ pages:
     - apt install python3-pip doxygen -y
     - pip3 install sphinx sphinx_rtd_theme breathe
     # Create documentation dir and move to build dir
-    - mkdir public
+    #- mkdir public
     - mkdir docs/build
     - cd docs/build
     - cmake ../
@@ -60,12 +60,14 @@ compile:
     - pwd
     - colcon build
     - source install/setup.sh
+    - mkdir public
+    - mv CI_Images/Build-test.svg public/Build-test_$CI_COMMIT_REF_NAME.svg
     # assign SVG image
   artifacts:
     paths:
       - build/
       - install/
-      - public/Build.svg
+      - public/Build-test_$CI_COMMIT_REF_NAME.svg
       
 # run unit tests
 test:
