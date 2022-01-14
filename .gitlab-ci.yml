@@ -18,8 +18,9 @@ cache:
 
 stages:
   - Build
-  - Test
   - Deploy
+  - Test
+
 
 before_script:
   # install package dependencies
@@ -65,14 +66,15 @@ compile:
     # SVG generation
     - mkdir public
     - anybadge --label=build --value=passing --file=build.svg passing=green failing=red
-    - mv build.svg public/
+    - mv build.svg public
+    - ls public
     #build_$CI_COMMIT_REF_NAME.svg
     # assign SVG image
   artifacts:
     paths:
       - build/
       - install/
-      - public/
+      - public
       
 # run unit tests
 test:
@@ -86,7 +88,9 @@ test:
     - cd ./build/tests
     - ./tests
     - anybadge --label=test --value=passing --file=test.svg passing=green failing=red
-    - mv test.svg public/
+    - ls
+    - ls public
+    - mv test.svg public
   artifacts:
     paths:
       - public/
