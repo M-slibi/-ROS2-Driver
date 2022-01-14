@@ -29,6 +29,7 @@ before_script:
   - source /opt/ros/galactic/setup.bash
   # Install python for pip3 installs
   - apt install python3-pip doxygen -y
+  - pip3 install anybadge
 # deploy pages only on master branch
 pages:
   stage: Deploy
@@ -62,7 +63,6 @@ compile:
     - colcon build
     - source install/setup.sh
     # SVG generation
-    - pip3 install anybadge
     - mkdir public
     - anybadge --label=build --value=passing --file=build.svg passing=green failing=red
     - mv build.svg public/build_$CI_COMMIT_REF_NAME.svg
@@ -84,4 +84,8 @@ test:
     - source install/setup.sh
     - cd ./build/tests
     - ./tests
-    
+    - anybadge --label=test --value=passing --file=test.svg passing=green failing=red
+    - mv test.svg public/test_$CI_COMMIT_REF_NAME.svg
+  artifacts:
+    paths:
+      - public/test_$CI_COMMIT_REF_NAME.svg
