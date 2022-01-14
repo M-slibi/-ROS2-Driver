@@ -89,4 +89,4 @@ test:
     - mv test.svg public/
   artifacts:
     paths:
-      - public/test.svg
+      - public/
