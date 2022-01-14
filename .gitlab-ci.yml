@@ -62,14 +62,10 @@ compile:
     - pwd
     - colcon build
     - source install/setup.sh
-    #- mkdir public
-    # SVG generation
-    - buildExitCode=$?
+    - mkdir public
   after_script:
-    - if [ "$buildExitCode" -ne 0 ]; then
-        anybadge --label=build --value=passing --file=build.svg passing=green failing=red running=orange
-      else
-        anybadge --label=build --value=failing --file=build.svg passing=green failing=red running=orange
+    # SVG generation
+    - anybadge --label=build --value=passing --file=build.svg passing=green failing=red running=orange
     - mv build.svg public
     #build_$CI_COMMIT_REF_NAME.svg
     # assign SVG image
@@ -78,16 +74,13 @@ compile:
       - build/
       - install/
       - public/build.svg
-    when: always
       
 # run unit tests
 test:
   stage: Test
   script:
     - echo "Running unit tests" 
-    - ls
-    - ls build/tests
-    - source /opt/ros/galactic/setup.bash
+    #- source /opt/ros/galactic/setup.bash
     - source install/setup.sh
     - cd ./build/tests
     - ./tests
@@ -98,4 +91,3 @@ test:
   artifacts:
     paths:
       - public/test.svg
-    when: always
