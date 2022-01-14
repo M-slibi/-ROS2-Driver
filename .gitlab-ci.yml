@@ -17,10 +17,22 @@ cache:
     - venv/
 
 stages:
+  - Initiate
   - Build
   - Test
   - Deploy
 
+Initiate:
+  stage: Initiate
+  script:
+    - mkdir public
+    - anybadge --label=build --value=failing --file=build.svg passing=green failing=red running=orange
+    - mv build.svg public
+    - anybadge --label=test --value=failing --file=test.svg passing=green failing=red running=orange
+    - mv test.svg public
+  artifacts:
+    paths:
+      - public
 
 before_script:
   # install package dependencies
@@ -63,18 +75,19 @@ compile:
     - pwd
     - colcon build
     - source install/setup.sh
+    #- mkdir public
     # SVG generation
-    - mkdir public
-    - anybadge --label=build --value=passing --file=build.svg passing=green failing=red
+  after_script:
+    - anybadge --label=build --value=passing --file=build.svg passing=green failing=red running=orange
     - mv build.svg public
-    - ls public
     #build_$CI_COMMIT_REF_NAME.svg
     # assign SVG image
   artifacts:
     paths:
       - build/
       - install/
-      - public
+      - public/build.svg
+    when: always
       
 # run unit tests
 test:
@@ -88,10 +101,10 @@ test:
     - cd ./build/tests
     - ./tests
     - cd ../..
-    - anybadge --label=test --value=passing --file=test.svg passing=green failing=red
-    - ls
-    - ls public
+  after_script:
+    - anybadge --label=test --value=passing --file=test.svg passing=green failing=red running=orange
     - mv test.svg public
   artifacts:
     paths:
-      - public/
+      - public/test.svg
+    when: always
