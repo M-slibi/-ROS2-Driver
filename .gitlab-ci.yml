@@ -18,8 +18,8 @@ cache:
 
 stages:
   - Build
-  - Deploy
   - Test
+  - Deploy
 
 
 before_script:
