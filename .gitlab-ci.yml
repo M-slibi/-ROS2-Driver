@@ -52,7 +52,6 @@ pages:
 compile:
   stage: Build
   script:
-    - cp -af compile.svg ./Public/
     - "echo Building ROS2 Driver"
     - ls
     - mkdir -p src/oxts
@@ -61,11 +60,12 @@ compile:
     - pwd
     - colcon build
     - source install/setup.sh
+    # assign SVG image
   artifacts:
     paths:
       - build/
       - install/
-      - public
+      - public/Build.svg
       
 # run unit tests
 test:
