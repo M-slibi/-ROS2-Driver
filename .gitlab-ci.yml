@@ -87,6 +87,7 @@ test:
     - source install/setup.sh
     - cd ./build/tests
     - ./tests
+    - cd ../..
     - anybadge --label=test --value=passing --file=test.svg passing=green failing=red
     - ls
     - ls public
