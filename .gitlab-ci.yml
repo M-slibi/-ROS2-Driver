@@ -67,6 +67,8 @@ pages:
 compile:
   stage: Build
   script:
+    - "FAIL"
+    - ls dds
     - "echo Building ROS2 Driver"
     - ls
     - mkdir -p src/oxts
