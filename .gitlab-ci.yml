@@ -60,14 +60,17 @@ compile:
     - pwd
     - colcon build
     - source install/setup.sh
+    # SVG generation
+    - pip install anybadge
     - mkdir public
-    - mv CI_Images/Build-test.svg public/Build-test_$CI_COMMIT_REF_NAME.svg
+    - anybadge --label=build --value=passing --file=build.svg passing=green failing=red
+    - mv build.svg public/build_$CI_COMMIT_REF_NAME.svg
     # assign SVG image
   artifacts:
     paths:
       - build/
       - install/
-      - public/Build-test_$CI_COMMIT_REF_NAME.svg
+      - public/build_$CI_COMMIT_REF_NAME.svg
       
 # run unit tests
 test:
