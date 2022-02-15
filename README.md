@@ -12,7 +12,7 @@ The ROS driver has been built with ROS release Galactic Geochelone.
 
 Dependencies:
 
-- ROS2 (Galactic Geochelone). (See [here](https://docs.ros.org/en/galactic/Installation/Ubuntu-Install-Debians.html) for an installation guide.)
+- ROS2 (Galactic Geochelone). (See [here](https://docs.ros.org/en/galactic/Installation/Ubuntu-Install-Debians.html) for an installation guide)
 
 ```bash
 sudo apt install doxygen
