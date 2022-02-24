@@ -25,7 +25,7 @@ def generate_launch_description():
     yaml_prefix = driver_params.pop("topic_prefix", "ins")
     yaml_ip = driver_params.pop("unit_ip","0.0.0.0")
     yaml_port = driver_params.pop("unit_port",3000)
-    yaml_rate = driver_params.pop("ncom_rate",250)
+    yaml_rate = driver_params.pop("ncom_rate",100)
     yaml_mode = driver_params.pop("timestamp_mode",0)
     
     ins_param_path = os.path.join(ins_dir, "config", parameters_file_name)
@@ -41,7 +41,7 @@ def generate_launch_description():
     unit_ip = LaunchConfiguration("unit_ip",default=yaml_ip)
     unit_port = LaunchConfiguration("unit_port",default=yaml_port)
     ncom_rate = LaunchConfiguration("ncom_rate",default=yaml_rate)
-    timestamp_mode = LaunchConfiguration("timestamp_mode",default=yaml_mode)
+    timestamp_mode = LaunchConfiguration("timestamp_mode",default=yaml_timestamp)
     
     frame_id = LaunchConfiguration("frame_id",default=yaml_frameid)
     lrf_source = LaunchConfiguration("lrf_source",default=yaml_lrf)
@@ -69,7 +69,7 @@ def generate_launch_description():
         "ncom_rate", default_value=str(yaml_rate), description="Set ncom rate /Hz"
     )
     declare_mode = DeclareLaunchArgument(
-        "timestamp_mode", default_value=str(yaml_mode), description="Set timestamp mode"
+        "timestamp_mode", default_value=str(yaml_timestamp), description="Set timestamp mode"
     )
     declare_frameid = DeclareLaunchArgument(
         "frame_id", default_value=yaml_frameid, description="Set id of frame"
