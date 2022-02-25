@@ -80,6 +80,7 @@ test:
   stage: Test
   script:
     - echo "Running unit tests" 
+    #- source /opt/ros/galactic/setup.bash
     - source install/setup.sh
     - cd ./build/tests
     - ./tests
