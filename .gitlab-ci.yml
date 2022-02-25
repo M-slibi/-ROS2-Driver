@@ -1,4 +1,4 @@
-image: osrf/ros:foxy-desktop
+image: osrf/ros:galactic-desktop
 #osrf/ros:foxy-ros1-bridge
 
 # Change pip's cache directory to be inside the project directory since we can
@@ -18,25 +18,27 @@ cache:
 
 stages:
   - Build
-  - Deploy
   - Test
+  - Deploy
 
 before_script:
   # install package dependencies
   - apt update && apt install libboost-all-dev -y
-  - apt-get install ros-foxy-fastrtps
+  - apt-get install ros-galactic-fastrtps
   - apt-get install cmake
-  - source /opt/ros/foxy/setup.bash
-
+  - source /opt/ros/galactic/setup.bash
+  # Install python for pip3 installs
+  - apt install python3-pip doxygen -y
+  - pip3 install anybadge
 # deploy pages only on master branch
 pages:
   stage: Deploy
   script:
     # Install python dependencies
-    - apt install python3-pip doxygen -y
+    #- apt install python3-pip doxygen -y
     - pip3 install sphinx sphinx_rtd_theme breathe
     # Create documentation dir and move to build dir
-    - mkdir public
+    #- mkdir public
     - mkdir docs/build
     - cd docs/build
     - cmake ../
@@ -60,20 +62,32 @@ compile:
     - pwd
     - colcon build
     - source install/setup.sh
+    - mkdir public
+  after_script:
+    # SVG generation
+    - anybadge --label=build --value=passing --file=build.svg passing=green failing=red running=orange
+    - mv build.svg public
+    #build_$CI_COMMIT_REF_NAME.svg
+    # assign SVG image
   artifacts:
     paths:
       - build/
       - install/
+      - public/build.svg
       
 # run unit tests
 test:
   stage: Test
   script:
     - echo "Running unit tests" 
-    - ls
-    - ls build/tests
-    - source /opt/ros/foxy/setup.bash
+    #- source /opt/ros/galactic/setup.bash
     - source install/setup.sh
     - cd ./build/tests
     - ./tests
-    
+    - cd ../..
+  after_script:
+    - anybadge --label=test --value=passing --file=test.svg passing=green failing=red running=orange
+    - mv test.svg public
+  artifacts:
+    paths:
+      - public/test.svg
