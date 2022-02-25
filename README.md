@@ -1,8 +1,6 @@
 # ROS2 Driver
 
-[![Pipeline_Status](https://gitlab.com/oxts/navigation/ros/oxts/badges/master/pipeline.svg)](https://gitlab.com/oxts/navigation/ros/oxts/-/commits/master)
-[![Build_Status](https://gitlab.com/oxts/navigation/ros/oxts/-/jobs/artifacts/master/raw/public/build.svg?job=compile)](https://gitlab.com/oxts/navigation/ros/oxts/-/commits/master)
-[![Test_Status](https://gitlab.com/oxts/navigation/ros/oxts/-/jobs/artifacts/master/raw/public/test.svg?job=test)](https://gitlab.com/oxts/navigation/ros/oxts/-/commits/master)
+[![Pipeline_Status](https://gitlab.com/oxts/navigation/ros/oxts/badges/Galactic/pipeline.svg)](https://gitlab.com/oxts/navigation/ros/oxts/-/commits/Galactic)
 
 A ROS2 driver which allows an OxTS INS to interact with a wider ROS network. Where ROS is mentioned in this document, this is in reference to ROS2. References to ROS1 will be explicit.
 
@@ -12,7 +10,7 @@ The ROS driver has been built with ROS release Galactic Geochelone.
 
 Dependencies:
 
-- ROS2 (Galactic Geochelone). (See [here](https://docs.ros.org/en/galactic/Installation/Ubuntu-Install-Debians.html) for an installation guide)
+- ROS2 (Galactic Geochelone). (See [here](https://docs.ros.org/en/galactic/Installation/Ubuntu-Install-Debians.html) for an installation guide.)
 
 ```bash
 sudo apt install doxygen
